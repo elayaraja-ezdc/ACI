@@ -1,6 +1,6 @@
 {
     "urn": "vmware:vcloud:plugin:seed",
-    "name": "EPG POC",
+    "name": "EPG POC With API Client",
     "containerVersion": "9.1.0",
     "version": "1.0.0",
     "scope": ["service-provider", "tenant"],

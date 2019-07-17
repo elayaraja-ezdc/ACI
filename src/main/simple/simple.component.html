@@ -10,7 +10,7 @@
         EPG Creation
     </h3>
     
-    <form clrForm>
+    <form clrForm #ticketaddform="ngForm" (ngSubmit)="createEPGSubmit(ticketaddform)" [hidden]="submitted" novalidate>
       <div class="clr-form-control">
             <label for="example" class="clr-control-label">Name</label>
             <div class="clr-control-container">
