@@ -42,7 +42,7 @@ export class SimpleComponent implements OnInit {
     createEPGSubmit(form: NgForm)  {
         
         return this.http
-          .post(`${this.VcdApiClient}/api/org/${this.tenant}/ticketing`,
+          .post(`${API_URL}/api/org/${this.tenant}/ticketing`,
                 `<?xml version="1.0" encoding="UTF-8"?><ticket><ticket_msg>${form.controls['epgname'].value}</ticket_msg></ticket>`,
                 this.headers)
           .map(res => parseTickets(res.text())[0]);
