@@ -25,9 +25,10 @@ export class UserComponent implements OnInit {
   useraddform = new FormGroup({
     tenantName: new FormControl('', [Validators.required]),
     multiApicDn: new FormControl('', [Validators.required]),
-    name: new FormControl('', Validators.required),
-    dns: new FormControl('', [Validators.required]),
-    status: new FormControl('', [Validators.required]),
+    numberOfAppTier: new FormControl('',[Validators.required,Validators.pattern(/^[0-9\._-]{1,3}$/)]),
+    // name: new FormControl('', Validators.required),
+    // dns: new FormControl('', [Validators.required]),
+    // status: new FormControl('', [Validators.required]),
     enableEPG: new FormControl('')
   });
 
@@ -44,7 +45,7 @@ export class UserComponent implements OnInit {
   constructor(private lumextService: LumextService) { }
 
   ngOnInit(): void {
-    this.getUsers();
+    //this.getUsers();
   }
 
   openUserModal() {
@@ -68,6 +69,8 @@ export class UserComponent implements OnInit {
     if (this.useraddform.valid) {
       this.userdatagridloading = true;
       this.useraddmodal = false;
+      var jsonData = this.useraddform.value;
+      jsonData["operation"] = "AddTenant";
       this.lumextService.addUser(JSON.stringify(this.useraddform.value)).subscribe(res => {
         this.useraddform.reset();
         this.userdatagridloading = false;

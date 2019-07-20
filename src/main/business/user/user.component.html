@@ -1,127 +1,158 @@
 <div class="content-area">
-  <h2 class="dashboard-header">Tenant</h2>
-  <div>
-    <clr-datagrid [(clrDgSingleSelected)]="selectedUser" [clrDgLoading]="userdatagridloading">
-      <clr-dg-column>Tenant</clr-dg-column>
-      <clr-dg-column>Name</clr-dg-column>
-      <clr-dg-column>Status</clr-dg-column>
-
-      <clr-dg-row *clrDgItems="let user of users" [clrDgItem]="user">
-        <clr-dg-cell>{{user.login}}</clr-dg-cell>
-        <clr-dg-cell>{{user.display_name}}</clr-dg-cell>
-        <clr-dg-cell>{{user.description}}</clr-dg-cell>
-      </clr-dg-row>
-      <clr-dg-footer>
-        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
-        {{pagination.totalItems}} tenants
-        <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
-      </clr-dg-footer>
-    </clr-datagrid>
-    <button role="tooltip" aria-haspopup="true"
-      class="tooltip tooltip-sm tooltip-top-right hover btn btn-sm btn-link button-refresh" (click)="getUsers()">
-      <clr-icon shape="refresh"></clr-icon>
-      <span class="tooltip-content tooltip-refresh">Refresh Tenant list</span>
-    </button>
-    <button class="btn btn-sm btn-secondary" (click)="openUserModal()" [disabled]="userdatagridloading">Create
-      Tenant</button>
-
-      <!---------------------------CREATE------------------------------------------------>
-
-    <form (ngSubmit)="createUserSubmit()" [hidden]="submitted" novalidate>
-      <clr-modal [(clrModalOpen)]="useraddmodal" [clrModalSize]="'x0.5'">
-        <h3 class="modal-title">Create Tenant</h3>
-        <div class="modal-body">
-          <section class="form-block">
-            <div class="form-line">
+    <h2 class="dashboard-header">Tenant</h2>
+    <div>
+      <clr-datagrid [(clrDgSingleSelected)]="selectedUser" [clrDgLoading]="userdatagridloading">
+        <clr-dg-column>Tenant</clr-dg-column>
+        <clr-dg-column>Name</clr-dg-column>
+        <clr-dg-column>Status</clr-dg-column>
+  
+        <clr-dg-row *clrDgItems="let user of users" [clrDgItem]="user">
+          <clr-dg-cell>{{user.login}}</clr-dg-cell>
+          <clr-dg-cell>{{user.display_name}}</clr-dg-cell>
+          <clr-dg-cell>{{user.description}}</clr-dg-cell>
+        </clr-dg-row>
+        <clr-dg-footer>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
+          {{pagination.totalItems}} tenants
+          <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid>
+      <button role="tooltip" aria-haspopup="true"
+        class="tooltip tooltip-sm tooltip-top-right hover btn btn-sm btn-link button-refresh" (click)="getUsers()">
+        <clr-icon shape="refresh"></clr-icon>
+        <span class="tooltip-content tooltip-refresh">Refresh Tenant list</span>
+      </button>
+      <button class="btn btn-sm btn-secondary" (click)="openUserModal()" [disabled]="userdatagridloading">Create
+        Tenant</button>
+  
+        <!---------------------------CREATE------------------------------------------------>
+  
+      <form (ngSubmit)="createUserSubmit()" [hidden]="submitted" novalidate>
+        <clr-modal [(clrModalOpen)]="useraddmodal" [clrModalSize]="'x0.5'">
+          <h3 class="modal-title">Create Tenant</h3>
+          <div class="modal-body">
+            <section class="form-block">
+              <div class="form-line">
+                  <div class="form-group" [formGroup]="useraddform">
+                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'tenantName')}">
+                      <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
+                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                          [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'tenantName')}">
+                        </clr-icon>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'tenantName')">Invalid
+                          syntax for login: Valid special characters are: . - _</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-line">
+                    <div class="form-group" [formGroup]="useraddform">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'multiApicDn')}">
+                          <input type="text" id="multiApicDn" formControlName="multiApicDn" placeholder="Domain *">
+                          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                              [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'multiApicDn')}">
+                            </clr-icon>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'multiApicDn')">Invalid
+                              syntax for login: Valid special characters are: . - _</span>
+                          </a>
+                        </div>
+                      </div>
+                  </div>
+              <!-- <div class="form-line">
                 <div class="form-group" [formGroup]="useraddform">
-                  <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'tenantName')}">
-                    <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
+                  <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'multiApicDn')}">
+                    <input type="text" id="multiApicDn" formControlName="multiApicDn" placeholder="Multi APIC DN *">
                     <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                       <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                        [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'tenantName')}">
+                        [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'multiApicDn')}">
                       </clr-icon>
-                      <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'tenantName')">Invalid
+                      <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'multiApicDn')">Invalid
                         syntax for login: Valid special characters are: . - _</span>
                     </a>
                   </div>
                 </div>
-              </div>
-            <div class="form-line">
-              <div class="form-group" [formGroup]="useraddform">
-                <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'multiApicDn')}">
-                  <input type="text" id="multiApicDn" formControlName="multiApicDn" placeholder="Multi APIC DN *">
-                  <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
-                    <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                      [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'multiApicDn')}">
-                    </clr-icon>
-                    <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'multiApicDn')">Invalid
-                      syntax for login: Valid special characters are: . - _</span>
-                  </a>
+                <div class="form-group" [formGroup]="useraddform">
+                  <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'name')}">
+                    <input type="text" class="clr-input input" id="name" formControlName="name"
+                      placeholder="Name *">
+                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                      <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                        [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'name')}">
+                      </clr-icon>
+                      <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'name')">Invalid
+                        syntax for name: Only letters, numbers and space are allowed.</span>
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div class="form-group" [formGroup]="useraddform">
-                <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'name')}">
-                  <input type="text" class="clr-input input" id="name" formControlName="name"
-                    placeholder="Name *">
-                  <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
-                    <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                      [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'name')}">
-                    </clr-icon>
-                    <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'name')">Invalid
-                      syntax for name: Only letters, numbers and space are allowed.</span>
-                  </a>
+              <div class="form-line">
+                <div class="form-group" [formGroup]="useraddform">
+                  <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'dns')}">
+                    <input type="text" id="dns" formControlName="dns" placeholder="DNS *">
+                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                      <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                        [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'dns')}">
+                      </clr-icon>
+                      <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'dns')">Invalid
+                        syntax for login: Valid special characters are: . - _</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="form-group" [formGroup]="useraddform">
+                  <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'status')}">
+                    <input type="text" class="clr-input input" id="status" formControlName="status"
+                      placeholder="Status *">
+                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                      <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                        [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'status')}">
+                      </clr-icon>
+                      <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'status')">Invalid
+                        syntax for name: Only letters, numbers and space are allowed.</span>
+                    </a>
+                  </div>
+                </div>
+              </div> -->
+              <div class="form-line">
+                  <div class="form-group" [formGroup]="useraddform">
+                      <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'numberOfAppTier')}">
+                        <input type="text" id="numberOfAppTier" formControlName="numberOfAppTier" placeholder="Number of App Tier *">
+                        <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                          <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                            [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'numberOfAppTier')}">
+                          </clr-icon>
+                          <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'numberOfAppTier')">Invalid
+                            syntax for login: Valid special characters are: . - _</span>
+                        </a>
+                      </div>
+                    </div>
+              </div>
+              <div class="form-line">
+                <div class="form-group" [formGroup]="useraddform">
+                  <clr-radio-container clrInline>
+                    <label>Enable Inter EPG Firewall</label><br/>
+                    <clr-radio-wrapper>
+                      <input type="radio" clrRadio value="Yes" formControlName="enableEPG" />
+                      <label>Yes &nbsp;&nbsp;</label>
+                    </clr-radio-wrapper>
+                    <clr-radio-wrapper>
+                      <input type="radio" clrRadio value="No"  formControlName="enableEPG" />
+                      <label>No</label>
+                    </clr-radio-wrapper>
+                  </clr-radio-container>
                 </div>
               </div>
-            </div>
-            <div class="form-line">
-              <div class="form-group" [formGroup]="useraddform">
-                <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'dns')}">
-                  <input type="text" id="dns" formControlName="dns" placeholder="DNS *">
-                  <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
-                    <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                      [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'dns')}">
-                    </clr-icon>
-                    <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'dns')">Invalid
-                      syntax for login: Valid special characters are: . - _</span>
-                  </a>
-                </div>
-              </div>
-              <div class="form-group" [formGroup]="useraddform">
-                <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'status')}">
-                  <input type="text" class="clr-input input" id="status" formControlName="status"
-                    placeholder="Status *">
-                  <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
-                    <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                      [ngClass]="{'icon-transparent' : !isInvalid(useraddform, 'status')}">
-                    </clr-icon>
-                    <span class="tooltip-content error-message" *ngIf="isInvalid(useraddform, 'status')">Invalid
-                      syntax for name: Only letters, numbers and space are allowed.</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="form-line">
-              <div class="form-group" [formGroup]="useraddform">
-                <clr-radio-container clrInline>
-                  <label>Enable Inter EPG Firewall</label><br/>
-                  <clr-radio-wrapper>
-                    <input type="radio" clrRadio value="Yes" formControlName="enableEPG" />
-                    <label>Yes &nbsp;&nbsp;</label>
-                  </clr-radio-wrapper>
-                  <clr-radio-wrapper>
-                    <input type="radio" clrRadio value="No"  formControlName="enableEPG" />
-                    <label>No</label>
-                  </clr-radio-wrapper>
-                </clr-radio-container>
-              </div>
-            </div>
-          </section>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline" (click)="createUserCancel(useraddform)">Cancel</button>
-          <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': useraddform.invalid}">Create</button>
-        </div>
-      </clr-modal>
-    </form>
+            </section>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" (click)="createUserCancel(useraddform)">Cancel</button>
+            <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': useraddform.invalid}">Create</button>
+          </div>
+        </clr-modal>
+        <!-- <div class="form-group" [formGroup]="useraddform">
+            <input type="hidden" id="Operation" formControlName="operation" ng-value="AddTenant">
+        </div> -->
+      </form>
+    </div>
   </div>
-</div>
