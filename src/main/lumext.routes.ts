@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { UserComponent } from './business/user/user.component';
 import { LumextComponent } from './lumext.component';
-import { GroupComponent } from './business/group/group.component';
+import { EPGComponent } from './business/epg/epg.component';
 
 export const ROUTES: Route[] = [
     {
@@ -9,7 +9,7 @@ export const ROUTES: Route[] = [
         component: LumextComponent,
         children: [
             { path: 'user', component: UserComponent },
-            { path: 'group', component: GroupComponent },
+            { path: 'epg', component: EPGComponent },
             { path: '**', redirectTo: 'nasServer' }
         ]
     }

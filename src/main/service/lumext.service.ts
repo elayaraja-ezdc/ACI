@@ -1,4 +1,5 @@
 import { User } from './../model/user';
+import { Epg } from './../model/epg';
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
@@ -50,6 +51,29 @@ export class LumextService {
       .mergeMap(orgId => {
         return this.http
          .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, value, this.headers)
+         .map((res: Response) => JSON.parse(res.text()))
+         .catch(this.handleError);
+      });
+  }
+
+  getEpgs(): Observable<User[]> {
+    return this.getOrgId()
+      .mergeMap(orgId => {
+        return this.http
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/epg`, this.headers)
+          .map((res: Response) => JSON.parse(res.text()))
+          .catch(this.handleError);
+      });
+  }
+  addEpg(value: string) {
+	 console.log("APi URL"+API_ROOT_URL);
+	 console.log("this api"+this.apiRootUrl);
+	 console.log("Org id:"+JSON.stringify(this.getOrgId));
+	 console.log(value);
+    return this.getOrgId()
+      .mergeMap(orgId => {
+        return this.http
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/epg`, value, this.headers)
          .map((res: Response) => JSON.parse(res.text()))
          .catch(this.handleError);
       });

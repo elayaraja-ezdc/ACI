@@ -1,0 +1,102 @@
+<div class="content-area">
+    <h2 class="dashboard-header">EPG</h2>
+    <div>
+      <clr-datagrid [(clrDgSingleSelected)]="selectedEpg" [clrDgLoading]="epgdatagridloading">
+        <clr-dg-column>Application Profile</clr-dg-column>
+        <clr-dg-column>Tenant</clr-dg-column>
+        <clr-dg-column>Bridge Domain</clr-dg-column>
+  
+        <clr-dg-row *clrDgItems="let epg of epgs" [clrDgItem]="epg">
+          <clr-dg-cell>{{epg.login}}</clr-dg-cell>
+          <clr-dg-cell>{{epg.display_name}}</clr-dg-cell>
+          <clr-dg-cell>{{epg.description}}</clr-dg-cell>
+        </clr-dg-row>
+        <clr-dg-footer>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
+          {{pagination.totalItems}} tenants
+          <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid>
+      <button role="tooltip" aria-haspopup="true"
+        class="tooltip tooltip-sm tooltip-top-right hover btn btn-sm btn-link button-refresh" (click)="getEpgs()">
+        <clr-icon shape="refresh"></clr-icon>
+        <span class="tooltip-content tooltip-refresh">Refresh EPG list</span>
+      </button>
+      <button class="btn btn-sm btn-secondary" (click)="openEpgModal()" [disabled]="epgdatagridloading">Create
+        EPG</button>
+  
+        <!---------------------------CREATE------------------------------------------------>
+  
+      <form (ngSubmit)="createEpgSubmit()" [hidden]="submitted" novalidate>
+        <clr-modal [(clrModalOpen)]="epgaddmodal" [clrModalSize]="'x0.5'">
+          <h3 class="modal-title">Create EPG</h3>
+          <div class="modal-body">
+            <section class="form-block">
+              <div class="form-line">
+                  <div class="form-group" [formGroup]="epgaddform">
+                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'tenantName')}">
+                      <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
+                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                          [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'tenantName')}">
+                        </clr-icon>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'tenantName')">Invalid
+                          syntax for login: Valid special characters are: . - _</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-line">
+                    <div class="form-group" [formGroup]="epgaddform">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'multiApicDn')}">
+                          <input type="text" id="multiApicDn" formControlName="multiApicDn" placeholder="Domain *">
+                          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                              [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'multiApicDn')}">
+                            </clr-icon>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'multiApicDn')">Invalid
+                              syntax for login: Valid special characters are: . - _</span>
+                          </a>
+                        </div>
+                      </div>
+                  </div>
+              
+              <div class="form-line">
+                  <div class="form-group" [formGroup]="epgaddform">
+                      <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'numberOfAppTier')}">
+                        <input type="text" id="numberOfAppTier" formControlName="numberOfAppTier" placeholder="Number of App Tier *">
+                        <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                          <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                            [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'numberOfAppTier')}">
+                          </clr-icon>
+                          <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'numberOfAppTier')">Invalid
+                            syntax for login: Valid special characters are: . - _</span>
+                        </a>
+                      </div>
+                    </div>
+              </div>
+              <div class="form-line">
+                <div class="form-group" [formGroup]="epgaddform">
+                  <clr-radio-container clrInline>
+                    <label>Add New Bridge Domain</label><br/>
+                    <clr-radio-wrapper>
+                      <input type="radio" clrRadio value="Yes" formControlName="enableEPG" />
+                      <label>Yes &nbsp;&nbsp;</label>
+                    </clr-radio-wrapper>
+                    <clr-radio-wrapper>
+                      <input type="radio" clrRadio value="No"  formControlName="enableEPG" />
+                      <label>No</label>
+                    </clr-radio-wrapper>
+                  </clr-radio-container>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" (click)="createTpgCancel(epgaddform)">Cancel</button>
+            <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': epgaddform.invalid}">Create</button>
+          </div>
+        </clr-modal>
+      </form>
+    </div>
+  </div>
