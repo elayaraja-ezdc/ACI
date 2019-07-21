@@ -19,29 +19,13 @@ export class UserComponent implements OnInit {
   userdatagridloading: boolean = false;
   useraddmodal: boolean = false;
   userdetailsmodal: boolean = false;
+  showAcknowledge: boolean = false;
 
-
-  //Updated by elaya 
   useraddform = new FormGroup({
-    tenantName: new FormControl('', [Validators.required]),
-    multiApicDn: new FormControl('', [Validators.required]),
-    numberOfAppTier: new FormControl('',[Validators.required,Validators.pattern(/^[0-9\._-]{1,3}$/)]),
-    // name: new FormControl('', Validators.required),
-    // dns: new FormControl('', [Validators.required]),
-    // status: new FormControl('', [Validators.required]),
-    enableEPG: new FormControl('')
+    tenantName: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z]*/),Validators.maxLength(25)]),
   });
 
-  userdetailsform = new FormGroup({
-    login: new FormControl(this.selectedUser ? this.selectedUser.login : '', [Validators.required, Validators.pattern(/^[A-Za-z0-9\._-]{7,256}$/)]),
-    display_name: new FormControl(this.selectedUser ? this.selectedUser.display_name : '', [Validators.required, Validators.maxLength(64), Validators.pattern(/^[\w+|\s]{5,64}$/)]),
-    description: new FormControl(this.selectedUser ? this.selectedUser.description : '', Validators.maxLength(1024)),
-  });
   
-  regexPassword: RegExp = /[\w+|\W]{8,127}/;
-  passwordGenerated: string;
-  visiblePassword = false;
-
   constructor(private lumextService: LumextService) { }
 
   ngOnInit(): void {
@@ -77,6 +61,7 @@ export class UserComponent implements OnInit {
         //this.getUsers();
       }, (err) => {
         //this.getUsers();
+        this.showAcknowledge = true;
         this.userdatagridloading = false;
       });
     }
@@ -85,6 +70,10 @@ export class UserComponent implements OnInit {
   createUserCancel(form: NgForm) {
     this.useraddmodal = false;
     form.reset();
+  }
+
+  closeAckAlert() {
+    this.showAcknowledge = false;
   }
 
 
