@@ -1,0 +1,210 @@
+<div class="content-area">
+        <h2 class="dashboard-header">Bridge</h2>
+        <div class="alert alert-info" role="alert" *ngIf="showAcknowledge">
+            <div class="alert-items">
+                <div class="alert-item static">
+                    <div class="alert-icon-wrapper">
+                        <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+                    </div>
+                    <span class="alert-text">Bridge Domain data sent to ACI for acknowledgement.</span>
+                </div>
+            </div>
+            <button type="button" class="close" aria-label="Close">
+                <clr-icon aria-hidden="true" shape="close" (click)="closeAckAlert()"></clr-icon>
+            </button>
+        </div>
+        <div>
+          <clr-datagrid [(clrDgSingleSelected)]="selectedBridge" [clrDgLoading]="bridgedatagridloading">
+            <clr-dg-column>Tenant Name</clr-dg-column>
+            <clr-dg-column>Bridge Domain Name</clr-dg-column>
+            <clr-dg-column>Type</clr-dg-column>
+      
+            <clr-dg-row *clrDgItems="let bridge of bridges" [clrDgItem]="bridge">
+              <clr-dg-cell>{{bridge.login}}</clr-dg-cell>
+              <clr-dg-cell>{{bridge.display_name}}</clr-dg-cell>
+              <clr-dg-cell>{{bridge.description}}</clr-dg-cell>
+            </clr-dg-row>
+            <clr-dg-footer>
+              {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
+              {{pagination.totalItems}} tenants
+              <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+            </clr-dg-footer>
+          </clr-datagrid>
+          <button role="tooltip" aria-haspopup="true"
+            class="tooltip tooltip-sm tooltip-top-right hover btn btn-sm btn-link button-refresh" (click)="getBridges()">
+            <clr-icon shape="refresh"></clr-icon>
+            <span class="tooltip-content tooltip-refresh">Refresh Bridge list</span>
+          </button>
+          <button class="btn btn-sm btn-secondary" (click)="openBridgeModal()" [disabled]="bridgedatagridloading">Create
+            Bridge</button>
+      
+            <!---------------------------CREATE------------------------------------------------>
+      
+          <form (ngSubmit)="createBridgeSubmit()" [hidden]="submitted" novalidate>
+            <clr-modal [(clrModalOpen)]="bridgeaddmodal" [clrModalSize]="'x0.5'">
+              <h3 class="modal-title">Create Bridge Domain</h3>
+              <div class="modal-body">
+                <section class="form-block">
+                    <div class="form-line">
+                        <div class="form-group" [formGroup]="bridgeaddform">
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'tenantName')}">
+                                <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
+                                <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                                <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'tenantName')}">
+                                </clr-icon>
+                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'tenantName')">
+                                    Invalid syntax for tenantName: Valid special characters are: . - _</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="form-group" [formGroup]="bridgeaddform">
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'bridgeDomainName')}">
+                                <input type="text" id="bridgeDomainName" formControlName="bridgeDomainName" placeholder="Bridge Doamin Name *">
+                                <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                                <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'bridgeDomainName')}">
+                                </clr-icon>
+                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'bridgeDomainName')">
+                                    Invalid syntax for bridgeDomainName: Valid special characters are: . - _</span>
+                                </a>
+                            </div>
+                        </div>                    
+                  </div> 
+                  <div class="form-line line-description">
+                    <div class="form-group textarea-group" [formGroup]="bridgeaddform">
+                        <textarea id="description" formControlName="description" placeholder="Description" ngModel></textarea>
+                    </div>
+                  </div>
+                  <div class="form-line">
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'bridgeType')}">
+                            <input type="text" id="bridgeType" formControlName="bridgeType" placeholder="Bridge Type *">
+                            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'bridgeType')}">
+                            </clr-icon>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'bridgeType')">
+                                Invalid syntax for bridgeType: Valid special characters are: . - _</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'vrf')}">
+                            <input type="text" id="vrf" formControlName="vrf" placeholder="VRF *">
+                            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'vrf')}">
+                            </clr-icon>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'vrf')">
+                                Invalid syntax for vrf: Valid special characters are: . - _</span>
+                            </a>
+                        </div>
+                    </div>                    
+                  </div>
+                  <div class="form-line">
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'l2UnknownUnicast')}">
+                            <input type="text" id="l2UnknownUnicast" formControlName="l2UnknownUnicast" placeholder="L2 Unknown Unicast *">
+                            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'l2UnknownUnicast')}">
+                            </clr-icon>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'l2UnknownUnicast')">
+                                Invalid syntax for l2UnknownUnicast: Valid special characters are: . - _</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'l3UnknownMultiCast')}">
+                            <input type="text" id="l3UnknownMultiCast" formControlName="l3UnknownMultiCast" placeholder="L3 Unknown MultiCast Flooding*">
+                            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'l3UnknownMultiCast')}">
+                            </clr-icon>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'l3UnknownMultiCast')">
+                                Invalid syntax for l3UnknownMultiCast: Valid special characters are: . - _</span>
+                            </a>
+                        </div>
+                    </div>                    
+                 </div>
+                 <div class="form-line line-description">
+                    <div class="form-group textarea-group" [formGroup]="bridgeaddform">
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'mutliDestinationFlooding')}">
+                                <input type="text" id="mutliDestinationFlooding" formControlName="mutliDestinationFlooding" placeholder="Multi Destination Flooding*">
+                                <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                                <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'mutliDestinationFlooding')}">
+                                </clr-icon>
+                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'mutliDestinationFlooding')">
+                                    Invalid syntax for mutliDestinationFlooding: Valid special characters are: . - _</span>
+                                </a>
+                            </div>
+                    </div>
+                 </div>  
+                  <div class="form-line">
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                      <clr-radio-container clrInline>
+                        <label>ARP Flooding</label><br/>
+                        <clr-radio-wrapper>
+                          <input type="radio" clrRadio value="Yes" formControlName="arpFlooding"/>
+                          <label>Yes &nbsp;&nbsp;</label>
+                        </clr-radio-wrapper>
+                        <clr-radio-wrapper>
+                          <input type="radio" clrRadio value="No"  formControlName="arpFlooding" />
+                          <label>No</label>
+                        </clr-radio-wrapper>
+                      </clr-radio-container>
+                    </div>
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <clr-radio-container clrInline>
+                            <label>Endpoint Datapalne Learning</label><br/>
+                            <clr-radio-wrapper>
+                            <input type="radio" clrRadio value="Yes" formControlName="endPointDataplane"/>
+                            <label>Yes &nbsp;&nbsp;</label>
+                            </clr-radio-wrapper>
+                            <clr-radio-wrapper>
+                            <input type="radio" clrRadio value="No"  formControlName="endPointDataplane" />
+                            <label>No</label>
+                            </clr-radio-wrapper>
+                        </clr-radio-container>
+                     </div>
+                </div>
+                <div class="form-line">
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <clr-radio-container clrInline>
+                        <label>Limit IP Learning to Subnet</label><br/>
+                        <clr-radio-wrapper>
+                            <input type="radio" clrRadio value="Yes" formControlName="limitIp"/>
+                            <label>Yes &nbsp;&nbsp;</label>
+                        </clr-radio-wrapper>
+                        <clr-radio-wrapper>
+                            <input type="radio" clrRadio value="No"  formControlName="limitIp" />
+                            <label>No</label>
+                        </clr-radio-wrapper>
+                        </clr-radio-container>
+                    </div>
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <clr-radio-container clrInline>
+                            <label>Unicast Routing</label><br/>
+                            <clr-radio-wrapper>
+                            <input type="radio" clrRadio value="Yes" formControlName="unicastRouting"/>
+                            <label>Yes &nbsp;&nbsp;</label>
+                            </clr-radio-wrapper>
+                            <clr-radio-wrapper>
+                            <input type="radio" clrRadio value="No"  formControlName="unicastRouting" />
+                            <label>No</label>
+                            </clr-radio-wrapper>
+                        </clr-radio-container>
+                    </div>
+                 </div>            
+                </section>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline" (click)="createBridgeCancel(bridgeaddform)">Cancel</button>
+                <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': bridgeaddform.invalid}">Create</button>
+              </div>
+            </clr-modal>
+          </form>
+        </div>
+      </div>

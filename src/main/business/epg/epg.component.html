@@ -1,5 +1,18 @@
 <div class="content-area">
     <h2 class="dashboard-header">EPG</h2>
+    <div class="alert alert-info" role="alert" *ngIf="showAcknowledge">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+                </div>
+                <span class="alert-text">EPG data sent to ACI for acknowledgement.</span>
+            </div>
+        </div>
+        <button type="button" class="close" aria-label="Close">
+            <clr-icon aria-hidden="true" shape="close" (click)="closeAckAlert()"></clr-icon>
+        </button>
+    </div>
     <div>
       <clr-datagrid [(clrDgSingleSelected)]="selectedEpg" [clrDgLoading]="epgdatagridloading">
         <clr-dg-column>Application Profile</clr-dg-column>

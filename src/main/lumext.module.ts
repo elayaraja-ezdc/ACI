@@ -11,6 +11,7 @@ import {ROUTES} from './lumext.routes';
 import {ClarityModule} from 'clarity-angular';
 import { MenuComponent } from './business/menu.component/menu.component';
 import { EPGComponent } from './business/epg/epg.component';
+import { BridgeComponent } from './business/bridge/bridge.component';
 //Added by Elaya for clr-radio 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
@@ -26,7 +27,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         UserComponent,
         MenuComponent,
         LumextComponent,
-        EPGComponent
+        EPGComponent,
+        BridgeComponent
     ],
     bootstrap: [
         UserComponent,

@@ -14,21 +14,13 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 
 
-@Component({
-  selector: 'epg-component',
-  templateUrl: './epg.component.html',
-  styleUrls: ['./epg.component.css'],
-  host: { 'class': 'content-container' },
-})
-
-
-
 export class EPGComponent implements OnInit {
   epgs: Epg[];
   selectedEpg: Epg;
   epgdatagridloading: boolean = false;
   epgaddmodal: boolean = false;
   epgdetailsmodal: boolean = false;
+  showAcknowledge: boolean = false;
   //Default Drop Down value
   existingBD: string = 'common';
   intraEPG: string = 'Enforced';
@@ -99,7 +91,10 @@ export class EPGComponent implements OnInit {
     form.reset();
   }
 
-
+  closeAckAlert() {
+    this.showAcknowledge = false;
+  }
+  
   isInvalid(form: FormGroup, control: string): boolean {
     if(form && form.controls[control]) {
       return form.controls[control].invalid && form.controls[control].touched
