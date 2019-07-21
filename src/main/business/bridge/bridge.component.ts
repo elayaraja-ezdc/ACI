@@ -20,7 +20,7 @@ export class BridgeComponent implements OnInit {
   bridgedatagridloading: boolean = false;
   bridgeaddmodal: boolean = false;
   bridgedetailsmodal: boolean = false;
-  showAcknowledge: boolean = false;
+  showBridgeAcknowledge: boolean = false;
 
   bridgeaddform = new FormGroup({
     tenantName: new FormControl('', [Validators.required]),
@@ -72,6 +72,7 @@ export class BridgeComponent implements OnInit {
         //this.getBridges();
       }, (err) => {
         //this.getBridges();
+        this.showBridgeAcknowledge = true;
         this.bridgedatagridloading = false;
       });
     }
@@ -82,8 +83,8 @@ export class BridgeComponent implements OnInit {
     form.reset();
   }
 
-  closeAckAlert() {
-    this.showAcknowledge = false;
+  closeBridgeAckAlert() {
+    this.showBridgeAcknowledge = false;
   }
 
   isInvalid(form: FormGroup, control: string): boolean {

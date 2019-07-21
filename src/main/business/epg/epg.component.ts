@@ -20,12 +20,12 @@ export class EPGComponent implements OnInit {
   epgdatagridloading: boolean = false;
   epgaddmodal: boolean = false;
   epgdetailsmodal: boolean = false;
-  showAcknowledge: boolean = false;
+  showEpgAcknowledge: boolean = false;
   //Default Drop Down value
-  existingBD: string = 'common';
+  existingBD: string = 'default';
   intraEPG: string = 'Enforced';
   grpMember: string = 'Exclude';
-
+  addNewTenant: string = 'Yes';
 
   epgaddform = new FormGroup({
     addNewTenant: new FormControl(''),
@@ -37,7 +37,7 @@ export class EPGComponent implements OnInit {
     epgName: new FormControl('',[Validators.required]),
     vmmDomainProfile: new FormControl('',[Validators.required]),
     resoultionImmediacy: new FormControl('',[Validators.required]),
-    vlaMode: new FormControl('',[Validators.required]),
+    vlanMode: new FormControl('',[Validators.required]),
     //Dropdown Value
     intraEPG: new FormControl(''),
     grpMember: new FormControl('')
@@ -81,6 +81,7 @@ export class EPGComponent implements OnInit {
         //this.getEpgs();
       }, (err) => {
         //this.getEpgs();
+        this.showEpgAcknowledge = true;
         this.epgdatagridloading = false;
       });
     }
@@ -91,10 +92,10 @@ export class EPGComponent implements OnInit {
     form.reset();
   }
 
-  closeAckAlert() {
-    this.showAcknowledge = false;
+  closeEpgAckAlert() {
+    this.showEpgAcknowledge = false;
   }
-  
+
   isInvalid(form: FormGroup, control: string): boolean {
     if(form && form.controls[control]) {
       return form.controls[control].invalid && form.controls[control].touched

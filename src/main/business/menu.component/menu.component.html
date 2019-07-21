@@ -5,7 +5,7 @@
                 <button class="menu-parent" (click)="subVisible = !subVisible"
                     [ngClass]="{'selected': route ==='group' || route ==='user', 'no-selected': route !=='group' && route !=='user'}">
                     <div class="text-parent-menu">
-                        ACI - EPG Process
+                        ACI
                     </div>
                     <clr-icon shape="angle" [ngClass]="{'rotateX': subVisible, 'unrotateX': !subVisible}"></clr-icon>
                 </button>
@@ -14,14 +14,14 @@
                 <a clrVerticalNavLink routerLink="./user" class="no-selected"
                     [ngClass]="{selected: route ==='user', 'no-selected': route !=='user'}" class="child-menu">
                     Tenants
+                </a>                
+                <a clrVerticalNavLink routerLink="./bridge" class="no-selected"
+                    [ngClass]="{selected: route ==='bridge', 'no-selected': route !=='bridge'}" class="child-menu">
+                    Bridge Domain
                 </a>
                 <a clrVerticalNavLink routerLink="./epg" class="no-selected"
                     [ngClass]="{selected: route ==='epg', 'no-selected': route !=='epg'}" class="child-menu">
                     EPG
-                </a>
-                <a clrVerticalNavLink routerLink="./bridge" class="no-selected"
-                    [ngClass]="{selected: route ==='bridge', 'no-selected': route !=='bridge'}" class="child-menu">
-                    Bridge Domain
                 </a>                
             </div>
         </div>

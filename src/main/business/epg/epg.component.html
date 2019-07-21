@@ -1,16 +1,16 @@
 <div class="content-area">
     <h2 class="dashboard-header">EPG</h2>
-    <div class="alert alert-info" role="alert" *ngIf="showAcknowledge">
+    <div class="alert alert-info" role="alert" *ngIf="showEpgAcknowledge">
         <div class="alert-items">
             <div class="alert-item static">
                 <div class="alert-icon-wrapper">
                     <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
                 </div>
-                <span class="alert-text">EPG data sent to ACI for acknowledgement.</span>
+                <span class="alert-text">EPG data sent to ACI.</span>
             </div>
         </div>
         <button type="button" class="close" aria-label="Close">
-            <clr-icon aria-hidden="true" shape="close" (click)="closeAckAlert()"></clr-icon>
+            <clr-icon aria-hidden="true" shape="close" (click)="closeEpgAckAlert()"></clr-icon>
         </button>
     </div>
     <div>
@@ -42,19 +42,19 @@
   
       <form (ngSubmit)="createEpgSubmit()" [hidden]="submitted" novalidate>
         <clr-modal [(clrModalOpen)]="epgaddmodal" [clrModalSize]="'x0.5'">
-          <h3 class="modal-title">Create EPG Process</h3>
+          <h3 class="modal-title">Create EPG</h3>
           <div class="modal-body">
             <section class="form-block">
               <div class="form-line">
                 <div class="form-group" [formGroup]="epgaddform">
                   <clr-radio-container clrInline>
-                    <label>Add New Tenant For EpG</label><br/>
+                    <label>Add New Tenant For EPG</label><br/>
                     <clr-radio-wrapper>
-                      <input type="radio" clrRadio value="Yes" formControlName="addNewTenant"/>
+                      <input type="radio" clrRadio value="Yes" formControlName="addNewTenant" [ngModel]="addNewTenant"/>
                       <label>Yes &nbsp;&nbsp;</label>
                     </clr-radio-wrapper>
                     <clr-radio-wrapper>
-                      <input type="radio" clrRadio value="No"  formControlName="addNewTenant" />
+                      <input type="radio" clrRadio value="No"  formControlName="addNewTenant" [ngModel]="addNewTenant"/>
                       <label>No</label>
                     </clr-radio-wrapper>
                   </clr-radio-container>
@@ -71,23 +71,6 @@
                       </a>
                     </div>
                 </div>
-                <!-- <div class="dropdown open" [formGroup]="epgaddform">
-                    <button class="dropdown-toggle btn btn-primary" type="button">
-                        Select Tenant
-                    <clr-icon shape="caret down"></clr-icon>
-                    </button>
-                    <div class="dropdown-menu">
-                         <h4 class="dropdown-header">Dropdown header</h4>
-                        <button type="button" class="dropdown-item active">common</button>
-                        <button type="button" class="dropdown-item">mgmt</button>
-                        <button type="button" class="dropdown-item">infra</button>
-                        <button type="button" class="dropdown-item">Heroes</button>
-                        <button type="button" class="dropdown-item">SnV</button>
-                        <button type="button" class="dropdown-item">tn-legacy</button>
-                        <button type="button" class="dropdown-item">S2TBK</button>
-                        <button type="button" class="dropdown-item">oli-TNT</button>
-                    </div>
-                </div> -->
               </div>
               <div class="form-line">
                 <div class="form-group" [formGroup]="epgaddform">
@@ -104,16 +87,12 @@
                     </clr-radio-container>
                   </div>
                   <div class="form-group" [formGroup]="epgaddform">
-                      <clr-dropdown>
-                          <button class="btn" clrDropdownTrigger>
-                              Select Bridge Domain
-                              <clr-icon shape="caret down"></clr-icon>
-                          </button>
-                          <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
-                              <button type="button" (click)="existingBD = 'common'" clrDropdownItem>common</button>
-                              <button type="button" (click)="existingBD = 'mgmt'" clrDropdownItem>mgmt</button>
-                          </clr-dropdown-menu>
-                      </clr-dropdown>
+                      <clr-select-container>
+                        <label>Select Bridge Domain</label><br/>
+                        <select clrSelect name="existingBD" [(ngModel)]="existingBD" formControlName="existingBD">
+                            <option value="default">default</option>
+                        </select>
+                      </clr-select-container>
                   </div>
               </div>
               <div class="form-line line-description">
@@ -149,30 +128,24 @@
                     </div>
                 </div>
                   <div class="form-group" [formGroup]="epgaddform">
-                      <clr-dropdown>
-                          <button class="btn" clrDropdownTrigger>
-                              Select Intra EPG
-                              <clr-icon shape="caret down"></clr-icon>
-                          </button>
-                          <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
-                              <button type="button" (click)="intraEPG = 'Enforced'" clrDropdownItem>Enforced</button>
-                              <button type="button" (click)="intraEPG = 'Unenforced'" clrDropdownItem>Unenforced</button>
-                          </clr-dropdown-menu>
-                      </clr-dropdown>
+                      <clr-select-container>
+                          <label>Select Intra EPG</label><br/>
+                          <select clrSelect name="intraEPG" [(ngModel)]="intraEPG" formControlName="intraEPG">
+                              <option value="Enforced">Enforced</option>
+                              <option value="Unenforced">Unenforced</option>
+                          </select>
+                        </clr-select-container>
                   </div>
               </div>
               <div class="form-line">
                 <div class="form-group" [formGroup]="epgaddform">
-                    <clr-dropdown>
-                        <button class="btn" clrDropdownTrigger>
-                            Prefered Group Member
-                            <clr-icon shape="caret down"></clr-icon>
-                        </button>
-                        <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
-                            <button type="button" (click)="grpMember = 'Exclude'" clrDropdownItem>Exclude</button>
-                            <button type="button" (click)="grpMember = 'Include'" clrDropdownItem>Include</button>
-                        </clr-dropdown-menu>
-                    </clr-dropdown>
+                    <clr-select-container>
+                      <label>Preffered Group Member</label><br/>
+                      <select clrSelect name="grpMember" [(ngModel)]="grpMember" formControlName="grpMember">
+                          <option value="Exclude">Exclude</option>
+                          <option value="Include">Include</option>
+                      </select>
+                    </clr-select-container>
                 </div>
                 <div class="form-group" [formGroup]="epgaddform">
                     <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'vmmDomainProfile')}">
@@ -201,14 +174,14 @@
                       </div>
                   </div>
                   <div class="form-group" [formGroup]="epgaddform">
-                      <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'vlaMode')}">
-                        <input type="text" id="vlaMode" formControlName="vlaMode" placeholder="VLA Mode *">
+                      <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'vlanMode')}">
+                        <input type="text" id="vlanMode" formControlName="vlanMode" placeholder="VLAN Mode *">
                         <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                           <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                            [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'vlaMode')}">
+                            [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'vlanMode')}">
                           </clr-icon>
-                          <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'vlaMode')">
-                            Invalid syntax for vlaMode: Valid special characters are: . - _</span>
+                          <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'vlanMode')">
+                            Invalid syntax for vlanMode: Valid special characters are: . - _</span>
                         </a>
                       </div>
                   </div>                    

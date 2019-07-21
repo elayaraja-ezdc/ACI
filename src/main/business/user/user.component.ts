@@ -19,7 +19,7 @@ export class UserComponent implements OnInit {
   userdatagridloading: boolean = false;
   useraddmodal: boolean = false;
   userdetailsmodal: boolean = false;
-  showAcknowledge: boolean = false;
+  showUserAcknowledge: boolean = false;
 
   useraddform = new FormGroup({
     tenantName: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z]*/),Validators.maxLength(25)]),
@@ -61,7 +61,7 @@ export class UserComponent implements OnInit {
         //this.getUsers();
       }, (err) => {
         //this.getUsers();
-        this.showAcknowledge = true;
+        this.showUserAcknowledge = true;
         this.userdatagridloading = false;
       });
     }
@@ -72,8 +72,8 @@ export class UserComponent implements OnInit {
     form.reset();
   }
 
-  closeAckAlert() {
-    this.showAcknowledge = false;
+  closeUserAckAlert() {
+    this.showUserAcknowledge = false;
   }
 
 

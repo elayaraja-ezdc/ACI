@@ -1,12 +1,12 @@
 <div class="content-area">
     <h2 class="dashboard-header">Tenant</h2>
-    <div class="alert alert-info" role="alert" *ngIf="showAcknowledge">
+    <div class="alert alert-info" role="alert" *ngIf="showUserAcknowledge">
         <div class="alert-items">
             <div class="alert-item static">
                 <div class="alert-icon-wrapper">
                     <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
                 </div>
-                <span class="alert-text">Tenant data sent to ACI for acknowledgement.</span>
+                <span class="alert-text">Tenant data sent to ACI.</span>
                 <!-- <div class="alert-actions">
                     <a href="#" class="alert-action">Acknowledge</a>
                     <a href="#" class="alert-action">Reset to green</a>
@@ -14,7 +14,7 @@
             </div>
         </div>
         <button type="button" class="close" aria-label="Close">
-            <clr-icon aria-hidden="true" shape="close" (click)="closeAckAlert()"></clr-icon>
+            <clr-icon aria-hidden="true" shape="close" (click)="closeUserAckAlert()"></clr-icon>
         </button>
     </div>
     <!-- Success Alert div-->

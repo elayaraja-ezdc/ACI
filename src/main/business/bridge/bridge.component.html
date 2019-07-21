@@ -1,16 +1,16 @@
 <div class="content-area">
-        <h2 class="dashboard-header">Bridge</h2>
-        <div class="alert alert-info" role="alert" *ngIf="showAcknowledge">
+        <h2 class="dashboard-header">Bridge Domain</h2>
+        <div class="alert alert-info" role="alert" *ngIf="showBridgeAcknowledge">
             <div class="alert-items">
                 <div class="alert-item static">
                     <div class="alert-icon-wrapper">
                         <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
                     </div>
-                    <span class="alert-text">Bridge Domain data sent to ACI for acknowledgement.</span>
+                    <span class="alert-text">Bridge Domain data sent to ACI.</span>
                 </div>
             </div>
             <button type="button" class="close" aria-label="Close">
-                <clr-icon aria-hidden="true" shape="close" (click)="closeAckAlert()"></clr-icon>
+                <clr-icon aria-hidden="true" shape="close" (click)="closeBridgeAckAlert()"></clr-icon>
             </button>
         </div>
         <div>
@@ -36,7 +36,7 @@
             <span class="tooltip-content tooltip-refresh">Refresh Bridge list</span>
           </button>
           <button class="btn btn-sm btn-secondary" (click)="openBridgeModal()" [disabled]="bridgedatagridloading">Create
-            Bridge</button>
+            Bridge Domain</button>
       
             <!---------------------------CREATE------------------------------------------------>
       
@@ -158,7 +158,7 @@
                     </div>
                     <div class="form-group" [formGroup]="bridgeaddform">
                         <clr-radio-container clrInline>
-                            <label>Endpoint Datapalne Learning</label><br/>
+                            <label>Endpoint Dataplane Learning</label><br/>
                             <clr-radio-wrapper>
                             <input type="radio" clrRadio value="Yes" formControlName="endPointDataplane"/>
                             <label>Yes &nbsp;&nbsp;</label>
