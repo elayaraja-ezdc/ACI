@@ -56,6 +56,7 @@ export class UserComponent implements OnInit {
       var jsonData = this.useraddform.value;
       jsonData["operation"] = "AddTenant";
       this.lumextService.addUser(JSON.stringify(this.useraddform.value)).subscribe(res => {
+        console.log("Tenant Creation response Text"+JSON.stringify(res));
         this.useraddform.reset();
         this.userdatagridloading = false;
         //this.getUsers();
