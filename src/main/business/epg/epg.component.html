@@ -29,71 +29,181 @@
   
       <form (ngSubmit)="createEpgSubmit()" [hidden]="submitted" novalidate>
         <clr-modal [(clrModalOpen)]="epgaddmodal" [clrModalSize]="'x0.5'">
-          <h3 class="modal-title">Create EPG</h3>
+          <h3 class="modal-title">Create EPG Process</h3>
           <div class="modal-body">
             <section class="form-block">
               <div class="form-line">
-                  <div class="form-group" [formGroup]="epgaddform">
+                <div class="form-group" [formGroup]="epgaddform">
+                  <clr-radio-container clrInline>
+                    <label>Add New Tenant For EpG</label><br/>
+                    <clr-radio-wrapper>
+                      <input type="radio" clrRadio value="Yes" formControlName="addNewTenant"/>
+                      <label>Yes &nbsp;&nbsp;</label>
+                    </clr-radio-wrapper>
+                    <clr-radio-wrapper>
+                      <input type="radio" clrRadio value="No"  formControlName="addNewTenant" />
+                      <label>No</label>
+                    </clr-radio-wrapper>
+                  </clr-radio-container>
+                </div>
+                <div class="form-group" [formGroup]="epgaddform">
                     <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'tenantName')}">
                       <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
                       <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                         <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
                           [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'tenantName')}">
                         </clr-icon>
-                        <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'tenantName')">Invalid
-                          syntax for login: Valid special characters are: . - _</span>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'tenantName')">
+                          Invalid syntax for tenantName: Valid special characters are: . - _</span>
                       </a>
                     </div>
-                  </div>
                 </div>
-                <div class="form-line">
-                    <div class="form-group" [formGroup]="epgaddform">
-                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'multiApicDn')}">
-                          <input type="text" id="multiApicDn" formControlName="multiApicDn" placeholder="Domain *">
-                          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
-                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                              [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'multiApicDn')}">
-                            </clr-icon>
-                            <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'multiApicDn')">Invalid
-                              syntax for login: Valid special characters are: . - _</span>
-                          </a>
-                        </div>
-                      </div>
-                  </div>
-              
-              <div class="form-line">
-                  <div class="form-group" [formGroup]="epgaddform">
-                      <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'numberOfAppTier')}">
-                        <input type="text" id="numberOfAppTier" formControlName="numberOfAppTier" placeholder="Number of App Tier *">
-                        <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
-                          <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                            [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'numberOfAppTier')}">
-                          </clr-icon>
-                          <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'numberOfAppTier')">Invalid
-                            syntax for login: Valid special characters are: . - _</span>
-                        </a>
-                      </div>
+                <!-- <div class="dropdown open" [formGroup]="epgaddform">
+                    <button class="dropdown-toggle btn btn-primary" type="button">
+                        Select Tenant
+                    <clr-icon shape="caret down"></clr-icon>
+                    </button>
+                    <div class="dropdown-menu">
+                         <h4 class="dropdown-header">Dropdown header</h4>
+                        <button type="button" class="dropdown-item active">common</button>
+                        <button type="button" class="dropdown-item">mgmt</button>
+                        <button type="button" class="dropdown-item">infra</button>
+                        <button type="button" class="dropdown-item">Heroes</button>
+                        <button type="button" class="dropdown-item">SnV</button>
+                        <button type="button" class="dropdown-item">tn-legacy</button>
+                        <button type="button" class="dropdown-item">S2TBK</button>
+                        <button type="button" class="dropdown-item">oli-TNT</button>
                     </div>
+                </div> -->
               </div>
               <div class="form-line">
                 <div class="form-group" [formGroup]="epgaddform">
-                  <clr-radio-container clrInline>
-                    <label>Add New Bridge Domain</label><br/>
-                    <clr-radio-wrapper>
-                      <input type="radio" clrRadio value="Yes" formControlName="enableEPG" />
-                      <label>Yes &nbsp;&nbsp;</label>
-                    </clr-radio-wrapper>
-                    <clr-radio-wrapper>
-                      <input type="radio" clrRadio value="No"  formControlName="enableEPG" />
-                      <label>No</label>
-                    </clr-radio-wrapper>
-                  </clr-radio-container>
-                </div>
+                    <clr-radio-container clrInline>
+                      <label>Add New Bridge Domain</label><br/>
+                      <clr-radio-wrapper>
+                        <input type="radio" clrRadio value="Yes" formControlName="addNewBridgeDomain"/>
+                        <label>Yes &nbsp;&nbsp;</label>
+                      </clr-radio-wrapper>
+                      <clr-radio-wrapper>
+                        <input type="radio" clrRadio value="No"  formControlName="addNewBridgeDomain" />
+                        <label>No</label>
+                      </clr-radio-wrapper>
+                    </clr-radio-container>
+                  </div>
+                  <div class="form-group" [formGroup]="epgaddform">
+                      <clr-dropdown>
+                          <button class="btn" clrDropdownTrigger>
+                              Select Bridge Domain
+                              <clr-icon shape="caret down"></clr-icon>
+                          </button>
+                          <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
+                              <button type="button" (click)="existingBD = 'common'" clrDropdownItem>common</button>
+                              <button type="button" (click)="existingBD = 'mgmt'" clrDropdownItem>mgmt</button>
+                          </clr-dropdown-menu>
+                      </clr-dropdown>
+                  </div>
               </div>
+              <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="epgaddform">
+                      <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'applicationProfileName')}">
+                          <input type="text" id="applicationProfileName" formControlName="applicationProfileName" placeholder="Application Name *">
+                          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                              [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'applicationProfileName')}">
+                            </clr-icon>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'applicationProfileName')">
+                              Invalid syntax for applicationProfileName: Valid special characters are: . - _</span>
+                          </a>
+                        </div>
+                  </div>
+                </div>
+              <div class="form-line line-description">
+                <div class="form-group textarea-group" [formGroup]="epgaddform">
+                  <textarea id="description" formControlName="description" placeholder="Description" ngModel></textarea>
+                </div>
+              </div> 
+              <div class="form-line">
+                <div class="form-group" [formGroup]="epgaddform">
+                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'epgName')}">
+                      <input type="text" id="epgName" formControlName="epgName" placeholder="EPG Name *">
+                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                          [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'epgName')}">
+                        </clr-icon>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'epgName')">
+                          Invalid syntax for epgName: Valid special characters are: . - _</span>
+                      </a>
+                    </div>
+                </div>
+                  <div class="form-group" [formGroup]="epgaddform">
+                      <clr-dropdown>
+                          <button class="btn" clrDropdownTrigger>
+                              Select Intra EPG
+                              <clr-icon shape="caret down"></clr-icon>
+                          </button>
+                          <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
+                              <button type="button" (click)="intraEPG = 'Enforced'" clrDropdownItem>Enforced</button>
+                              <button type="button" (click)="intraEPG = 'Unenforced'" clrDropdownItem>Unenforced</button>
+                          </clr-dropdown-menu>
+                      </clr-dropdown>
+                  </div>
+              </div>
+              <div class="form-line">
+                <div class="form-group" [formGroup]="epgaddform">
+                    <clr-dropdown>
+                        <button class="btn" clrDropdownTrigger>
+                            Prefered Group Member
+                            <clr-icon shape="caret down"></clr-icon>
+                        </button>
+                        <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
+                            <button type="button" (click)="grpMember = 'Exclude'" clrDropdownItem>Exclude</button>
+                            <button type="button" (click)="grpMember = 'Include'" clrDropdownItem>Include</button>
+                        </clr-dropdown-menu>
+                    </clr-dropdown>
+                </div>
+                <div class="form-group" [formGroup]="epgaddform">
+                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'vmmDomainProfile')}">
+                      <input type="text" id="vmmDomainProfile" formControlName="vmmDomainProfile" placeholder="VMM Domain Profile *">
+                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                          [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'vmmDomainProfile')}">
+                        </clr-icon>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'vmmDomainProfile')">
+                          Invalid syntax for vmmDomainProfile: Valid special characters are: . - _</span>
+                      </a>
+                    </div>
+                </div>                    
+              </div>
+              <div class="form-line">
+                  <div class="form-group" [formGroup]="epgaddform">
+                      <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'resoultionImmediacy')}">
+                        <input type="text" id="resoultionImmediacy" formControlName="resoultionImmediacy" placeholder="Resolution Immediacy *">
+                        <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                          <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                            [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'resoultionImmediacy')}">
+                          </clr-icon>
+                          <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'resoultionImmediacy')">
+                            Invalid syntax for resoultionImmediacy: Valid special characters are: . - _</span>
+                        </a>
+                      </div>
+                  </div>
+                  <div class="form-group" [formGroup]="epgaddform">
+                      <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgaddform, 'vlaMode')}">
+                        <input type="text" id="vlaMode" formControlName="vlaMode" placeholder="VLA Mode *">
+                        <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                          <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                            [ngClass]="{'icon-transparent' : !isInvalid(epgaddform, 'vlaMode')}">
+                          </clr-icon>
+                          <span class="tooltip-content error-message" *ngIf="isInvalid(epgaddform, 'vlaMode')">
+                            Invalid syntax for vlaMode: Valid special characters are: . - _</span>
+                        </a>
+                      </div>
+                  </div>                    
+                </div>             
             </section>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline" (click)="createTpgCancel(epgaddform)">Cancel</button>
+            <button type="button" class="btn btn-outline" (click)="createEpgCancel(epgaddform)">Cancel</button>
             <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': epgaddform.invalid}">Create</button>
           </div>
         </clr-modal>

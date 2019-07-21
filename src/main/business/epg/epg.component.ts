@@ -29,26 +29,27 @@ export class EPGComponent implements OnInit {
   epgdatagridloading: boolean = false;
   epgaddmodal: boolean = false;
   epgdetailsmodal: boolean = false;
+  //Default Drop Down value
+  existingBD: string = 'common';
+  intraEPG: string = 'Enforced';
+  grpMember: string = 'Exclude';
 
 
-  //Updated by elaya 
   epgaddform = new FormGroup({
+    addNewTenant: new FormControl(''),
     tenantName: new FormControl('', [Validators.required]),
-    multiApicDn: new FormControl('', [Validators.required]),
-    numberOfAppTier: new FormControl('',[Validators.required,Validators.pattern(/^[0-9\._-]{1,3}$/)]),
-    // name: new FormControl('', Validators.required),
-    // dns: new FormControl('', [Validators.required]),
-    // status: new FormControl('', [Validators.required]),
-    enableEPG: new FormControl('')
+    addNewBridgeDomain: new FormControl(''),
+    existingBD: new FormControl(''),
+    applicationProfileName: new FormControl('', [Validators.required]),
+    description: new FormControl(''),
+    epgName: new FormControl('',[Validators.required]),
+    vmmDomainProfile: new FormControl('',[Validators.required]),
+    resoultionImmediacy: new FormControl('',[Validators.required]),
+    vlaMode: new FormControl('',[Validators.required]),
+    //Dropdown Value
+    intraEPG: new FormControl(''),
+    grpMember: new FormControl('')
   });
-
-
-  epgdetailsform = new FormGroup({
-    login: new FormControl(this.selectedEpg ? this.selectedEpg.login : '', [Validators.required, Validators.pattern(/^[A-Za-z0-9\._-]{7,256}$/)]),
-    display_name: new FormControl(this.selectedEpg ? this.selectedEpg.display_name : '', [Validators.required, Validators.maxLength(64), Validators.pattern(/^[\w+|\s]{5,64}$/)]),
-    description: new FormControl(this.selectedEpg ? this.selectedEpg.description : '', Validators.maxLength(1024)),
-  });
-  
 
   constructor(private lumextService: LumextService) { }
 
@@ -78,7 +79,10 @@ export class EPGComponent implements OnInit {
       this.epgdatagridloading = true;
       this.epgaddmodal = false;
       var jsonData = this.epgaddform.value;
-      jsonData["operation"] = "AddTenant";
+      jsonData["operation"] = "AddEPG";
+      jsonData["existingBD"] = this.existingBD;
+      jsonData["intraEPG"] = this.intraEPG;
+      jsonData["grpMember"] = this.grpMember; 
       this.lumextService.addEpg(JSON.stringify(this.epgaddform.value)).subscribe(res => {
         this.epgaddform.reset();
         this.epgdatagridloading = false;
