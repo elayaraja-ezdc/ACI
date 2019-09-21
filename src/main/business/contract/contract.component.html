@@ -1,0 +1,116 @@
+<div class="content-area">
+    <h2 class="dashboard-header">Contract</h2>
+    <div class="alert alert-info" role="alert" *ngIf="showContractAcknowledge">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+                </div>
+                <span class="alert-text">Contract data sent to ACI.</span>
+                <!-- <div class="alert-actions">
+                    <a href="#" class="alert-action">Acknowledge</a>
+                    <a href="#" class="alert-action">Reset to green</a>
+                </div> -->
+            </div>
+        </div>
+        <button type="button" class="close" aria-label="Close">
+            <clr-icon aria-hidden="true" shape="close" (click)="closeContractAckAlert()"></clr-icon>
+        </button>
+    </div>
+    <!-- Success Alert div-->
+    <!-- <div class="alert alert-success" role="alert">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+                </div>
+                <span class="alert-text">...</span>
+            </div>
+        </div>
+    </div> -->
+    <div>
+      <clr-datagrid [(clrDgSingleSelected)]="selectedContract" [clrDgLoading]="contractdatagridloading">
+        <clr-dg-column>Contract</clr-dg-column>  
+        <clr-dg-row *clrDgItems="let contract of contracts" [clrDgItem]="contract">
+          <clr-dg-cell>{{contract.tenantName}}</clr-dg-cell>
+        </clr-dg-row>
+        <clr-dg-footer>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
+          {{pagination.totalItems}} tenants
+          <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid>
+      <button role="tooltip" aria-haspopup="true"
+        class="tooltip tooltip-sm tooltip-top-right hover btn btn-sm btn-link button-refresh" (click)="getContracts()">
+        <clr-icon shape="refresh"></clr-icon>
+        <span class="tooltip-content tooltip-refresh">Refresh Contract list</span>
+      </button>
+      <button class="btn btn-sm btn-secondary" (click)="openContractModal()" [disabled]="contractdatagridloading">Create
+        Contract</button>
+  
+        <!---------------------------CREATE Contract------------------------------------------------>
+  
+      <form (ngSubmit)="createContractSubmit()" [hidden]="submitted" novalidate>
+        <clr-modal [(clrModalOpen)]="contractaddmodal" [clrModalSize]="'x0.5'">
+          <h3 class="modal-title">Create Contract</h3>
+          <div class="modal-body">
+            <section class="form-block">
+                <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="contractaddform">
+                      <clr-select-container>
+                        <label>Select Contract Type *</label><br/>
+                        <select clrSelect name="contractType" [(ngModel)]="contractType" formControlName="contractType">
+                            <option value="standard">Standard</option>
+                            <option value="taboos">Taboos</option>
+                            <option value="imported">Imported</option>
+                        </select>
+                      </clr-select-container>
+                  </div>
+                </div>
+                <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="contractaddform">
+                      <clr-select-container>
+                        <label>Select Contract Subject *</label><br/>
+                        <select clrSelect name="contractSubject" [(ngModel)]="contractSubject" formControlName="contractSubject">
+                            <option value="subject1">Subject1</option>
+                            <option value="subject2">Subject2</option>
+                        </select>
+                      </clr-select-container>
+                  </div>
+                </div>
+                <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="contractaddform">
+                      <clr-select-container>
+                        <label>Select Contract Filter *</label><br/>
+                        <select clrSelect name="contractFilter" [(ngModel)]="contractFilter" formControlName="contractFilter">
+                            <option value="filter1">Filter1</option>
+                            <option value="filter2">Filter2</option>
+                            <option value="filter3">Filter3</option>
+                        </select>
+                      </clr-select-container>
+                  </div>
+                </div>
+                <!-- <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="contractaddform">
+                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(contractaddform, 'contractPolicyName')}">
+                      <input type="text" id="contractPolicyName" formControlName="contractPolicyName" placeholder="Subject Name *">
+                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                          [ngClass]="{'icon-transparent' : !isInvalid(contractaddform, 'contractPolicyName')}">
+                        </clr-icon>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(contractaddform, 'contractPolicyName')">Invalid
+                          syntax for login: Valid special characters are: . - _</span>
+                      </a>
+                    </div>
+                  </div>
+                </div> -->
+            </section>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" (click)="createContractCancel(contractaddform)">Cancel</button>
+            <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': contractaddform.invalid}">Create</button>
+          </div>
+        </clr-modal>
+      </form>
+    </div>
+  </div>

@@ -103,6 +103,29 @@ export class LumextService {
       });
   }
 
+  getContracts(): Observable<User[]> {
+    return this.getOrgId()
+      .mergeMap(orgId => {
+        return this.http
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/contract`, this.headers)
+          .map((res: Response) => JSON.parse(res.text()))
+          .catch(this.handleError);
+      });
+  }
+  addContract(value: string) {
+	 console.log("APi URL"+API_ROOT_URL);
+	 console.log("this api"+this.apiRootUrl);
+	 console.log("Org id:"+JSON.stringify(this.getOrgId));
+	 console.log(value);
+    return this.getOrgId()
+      .mergeMap(orgId => {
+        return this.http
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/contract`, value, this.headers)
+         .map((res: Response) => JSON.parse(res.text()))
+         .catch(this.handleError);
+      });
+  }
+
   private handleError(error: any) {
     const errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     return Observable.throw(error);
