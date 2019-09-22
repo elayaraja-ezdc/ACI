@@ -30,8 +30,10 @@ export class LumextService {
         const orgArray = JSON.parse(res.text()).org;
         const orgName = document.location.pathname.split(/\/tenant\//)[1].split('/')[0];
         const orgId = orgArray.find((item: any) => item.name === orgName);
-        return orgId.href.split(/\/org\//)[1];
+        //return orgId.href.split(/\/org\//)[1];
+        return "Org1";
       });
+    //return "221f3a61-2f43-4194-ae18-cf8160317cb2";
   }
 
   getUsers(): Observable<User[]> {
