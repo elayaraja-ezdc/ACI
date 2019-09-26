@@ -13,8 +13,12 @@ import { MenuComponent } from './business/menu.component/menu.component';
 import { EPGComponent } from './business/epg/epg.component';
 import { BridgeComponent } from './business/bridge/bridge.component';
 import { ContractComponent } from './business/contract/contract.component';
+import { FilterComponent } from './business/filter/filter.component';
+import { ConBindingComponent } from './business/conbinding/conbinding.component';
 //Added by Elaya for clr-radio 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+
 
 @NgModule({
     imports: [
@@ -30,7 +34,11 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         LumextComponent,
         EPGComponent,
         BridgeComponent,
-        ContractComponent
+        ContractComponent,
+        FilterComponent,
+        ConBindingComponent,
+        
+       
     ],
     bootstrap: [
         UserComponent,

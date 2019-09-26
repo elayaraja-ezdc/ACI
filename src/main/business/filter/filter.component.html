@@ -1,0 +1,148 @@
+<div class="content-area">
+    <h2 class="dashboard-header">Filter</h2>
+    <div class="alert alert-info" role="alert" *ngIf="showFilterAcknowledge">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+                </div>
+                <span class="alert-text">Filter data sent to ACI.</span>
+                <!-- <div class="alert-actions">
+                    <a href="#" class="alert-action">Acknowledge</a>
+                    <a href="#" class="alert-action">Reset to green</a>
+                </div> -->
+            </div>
+        </div>
+        <button type="button" class="close" aria-label="Close">
+            <clr-icon aria-hidden="true" shape="close" (click)="closeFilterAckAlert()"></clr-icon>
+        </button>
+    </div>
+    <!-- Success Alert div-->
+    <!-- <div class="alert alert-success" role="alert">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+                </div>
+                <span class="alert-text">...</span>
+            </div>
+        </div>
+    </div> -->
+    <div>
+      <clr-datagrid [(clrDgSingleSelected)]="selectedFilter" [clrDgLoading]="filterdatagridloading">
+        <clr-dg-column>Filter</clr-dg-column>  
+        <clr-dg-row *clrDgItems="let filter of filters" [clrDgItem]="filter">
+          <clr-dg-cell>{{filter.tenantName}}</clr-dg-cell>
+        </clr-dg-row>
+        <clr-dg-footer>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
+          {{pagination.totalItems}} tenants
+          <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid>
+      <button role="tooltip" aria-haspopup="true"
+        class="tooltip tooltip-sm tooltip-top-right hover btn btn-sm btn-link button-refresh" (click)="getFilters()">
+        <clr-icon shape="refresh"></clr-icon>
+        <span class="tooltip-content tooltip-refresh">Refresh filter list</span>
+      </button>
+      <button class="btn btn-sm btn-secondary" (click)="openFilterModal()" [disabled]="filterdatagridloading">Create
+        Filter</button>
+  
+        <!---------------------------CREATE Filter------------------------------------------------>
+  
+      <form (ngSubmit)="createFilterSubmit()" [hidden]="submitted" novalidate>
+        <clr-modal [(clrModalOpen)]="filteraddmodal" [clrModalSize]="'x0.5'">
+          <h3 class="modal-title">Create Filter</h3>
+          <div class="modal-body">
+            <section class="form-block">
+              
+                <div class="form-line line-description">
+                    <div class="form-group textarea-group" [formGroup]="filteraddform">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(filteraddform, 'filterName')}">
+                          
+                          <input type="text" id="filterName" name="filterName" formControlName="filterName" placeholder="Filter Name *"style="width: 150px;">
+                          <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                              [ngClass]="{'icon-transparent' : !isInvalid(filteraddform, 'filterName')}">
+                            </clr-icon>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(filteraddform, 'filterName')">
+                              Invalid syntax for tenantName: Valid special characters are: . - _</span>
+                          </a>
+                        </div>
+                    </div>
+                  </div>
+                <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="filteraddform">
+                      <clr-select-container style="width: 150px;">
+                        <label>Destination From Port *</label><br/>
+                        <select clrSelect name="dFromPort" [(ngModel)]="dFromPort" formControlName="dFromPort" style="width: 100%;">
+                            <option id="dfp1" value="443">443</option>
+                            <option id="dfp2" value="80">80</option>
+                            <option id="dfp3" value="22">22</option>
+                        </select>
+                      </clr-select-container>
+                  </div>
+                </div>
+                <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="filteraddform">
+                      <clr-select-container style="width: 150px;">
+                        <label>Destination To Port *</label><br/>
+                        <select clrSelect name="dToPort" [(ngModel)]="dToPort" formControlName="dToPort"style="width: 100%;">
+                            <option id="dtp1" value="443">443</option>
+                            <option id="dtp2"value="80">80</option>
+                            <option id="dtp3" value="22">22</option>
+                           
+                        </select>
+                      </clr-select-container>
+                  </div>
+                </div>
+                <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="filteraddform">
+                      <clr-select-container style="width: 150px;">
+                        <label>ether Type *</label><br/>
+                        <select clrSelect name="etherT" [(ngModel)]="etherT" formControlName="etherT" style="width: 100%;">
+                            <option value="ip">ip</option>
+                            
+                        </select>
+                      </clr-select-container>
+                  </div>
+                </div>
+                
+
+                <div class="form-line line-description">
+                        <div class="form-group textarea-group" [formGroup]="filteraddform">
+                             <clr-select-container style="width: 150px;"> 
+                              <label>Protocol *</label><br/>
+                              <select clrSelect name="prot" [(ngModel)]="prot" formControlName="prot" style="width: 100%;">
+                                  <option value="tcp">tcp</option>
+                                  
+                              </select>
+                            </clr-select-container> 
+                        </div>
+                      </div>
+                     
+                <!-- <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="filteraddform">
+                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(filteraddform, 'filterPolicyName')}">
+                      <input type="text" id="filterPolicyName" formControlName="filterPolicyName" placeholder="Subject Name *">
+                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                          [ngClass]="{'icon-transparent' : !isInvalid(filteraddform, 'filterPolicyName')}">
+                        </clr-icon>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(filteraddform, 'filterPolicyName')">Invalid
+                          syntax for login: Valid special characters are: . - _</span>
+                      </a>
+                    </div>
+                  </div>
+                </div> -->
+            </section>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" (click)="createFilterCancel(filteraddform)">Cancel</button>
+            <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': filteraddform.invalid}">Create</button>
+          </div>
+        </clr-modal>
+      </form>
+    </div>
+  
+  </div>

@@ -45,7 +45,7 @@
               <h3 class="modal-title">Create Bridge Domain</h3>
               <div class="modal-body">
                 <section class="form-block">
-                    <div class="form-line">
+            <div class="form-line">
                         <div class="form-group" [formGroup]="bridgeaddform">
                             <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'tenantName')}">
                                 <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
@@ -71,11 +71,7 @@
                             </div>
                         </div>                    
                   </div> 
-                  <div class="form-line line-description">
-                    <div class="form-group textarea-group" [formGroup]="bridgeaddform">
-                        <textarea id="description" formControlName="description" placeholder="Description" ngModel></textarea>
-                    </div>
-                  </div>
+                  
                   <div class="form-line">
                     <div class="form-group" [formGroup]="bridgeaddform">
                         <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'bridgeType')}">
@@ -129,9 +125,9 @@
                     </div>                    
                  </div>
                  <div class="form-line line-description">
-                    <div class="form-group textarea-group" [formGroup]="bridgeaddform">
-                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'mutliDestinationFlooding')}">
-                                <input type="text" id="mutliDestinationFlooding" formControlName="mutliDestinationFlooding" placeholder="Multi Destination Flooding*">
+                    <div class="form-group textarea-group" [formGroup]="bridgeaddform" >
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'mutliDestinationFlooding')}" style="width: 100%; margin: 0 18px;">
+                                <input type="text" id="mutliDestinationFlooding"  formControlName="mutliDestinationFlooding" placeholder="MultiDestination Flood*">
                                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                                 <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
                                     [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'mutliDestinationFlooding')}">
@@ -142,6 +138,11 @@
                             </div>
                     </div>
                  </div>  
+                 <div class="form-line line-description">
+                    <div class="form-group textarea-group" [formGroup]="bridgeaddform">
+                        <textarea id="description" formControlName="description" placeholder="Description" ngModel style="margin: 0 18px;"></textarea>
+                    </div>
+                  </div>
                   <div class="form-line">
                     <div class="form-group" [formGroup]="bridgeaddform">
                       <clr-radio-container clrInline>
@@ -171,19 +172,7 @@
                      </div>
                 </div>
                 <div class="form-line">
-                    <div class="form-group" [formGroup]="bridgeaddform">
-                        <clr-radio-container clrInline>
-                        <label>Limit IP Learning to Subnet</label><br/>
-                        <clr-radio-wrapper>
-                            <input type="radio" clrRadio value="Yes" formControlName="limitIp"/>
-                            <label>Yes &nbsp;&nbsp;</label>
-                        </clr-radio-wrapper>
-                        <clr-radio-wrapper>
-                            <input type="radio" clrRadio value="No"  formControlName="limitIp" />
-                            <label>No</label>
-                        </clr-radio-wrapper>
-                        </clr-radio-container>
-                    </div>
+                    
                     <div class="form-group" [formGroup]="bridgeaddform">
                         <clr-radio-container clrInline>
                             <label>Unicast Routing</label><br/>
@@ -197,6 +186,19 @@
                             </clr-radio-wrapper>
                         </clr-radio-container>
                     </div>
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                            <clr-radio-container clrInline>
+                            <label>Limit IP Learning to Subnet</label><br/>
+                            <clr-radio-wrapper>
+                                <input type="radio" clrRadio value="Yes" formControlName="limitIp"/>
+                                <label>Yes &nbsp;&nbsp;</label>
+                            </clr-radio-wrapper>
+                            <clr-radio-wrapper>
+                                <input type="radio" clrRadio value="No"  formControlName="limitIp" />
+                                <label>No</label>
+                            </clr-radio-wrapper>
+                            </clr-radio-container>
+                        </div>
                  </div>            
                 </section>
               </div>
@@ -207,4 +209,5 @@
             </clr-modal>
           </form>
         </div>
+    
       </div>
