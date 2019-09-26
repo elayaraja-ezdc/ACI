@@ -1,0 +1,131 @@
+<div class="content-area">
+    <h2 class="dashboard-header">Contract Binding </h2>
+    <div class="alert alert-info" role="alert" *ngIf="showConBindingAcknowledge">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="info-circle"></clr-icon>
+                </div>
+                <span class="alert-text">Contract Binding  data sent to ACI.</span>
+                <!-- <div class="alert-actions">
+                    <a href="#" class="alert-action">Acknowledge</a>
+                    <a href="#" class="alert-action">Reset to green</a>
+                </div> -->
+            </div>
+        </div>
+        <button type="button" class="close" aria-label="Close">
+            <clr-icon aria-hidden="true" shape="close" (click)="closeConBindingAckAlert()"></clr-icon>
+        </button>
+    </div>
+    <!-- Success Alert div-->
+    <!-- <div class="alert alert-success" role="alert">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+                </div>
+                <span class="alert-text">...</span>
+            </div>
+        </div>
+    </div> -->
+    <div>
+      <clr-datagrid [(clrDgSingleSelected)]="selectedConBinding" [clrDgLoading]="conBindingdatagridloading">
+        <clr-dg-column>Contract Binding </clr-dg-column>  
+        <clr-dg-row *clrDgItems="let conBinding of conBindings" [clrDgItem]="conBinding">
+          <clr-dg-cell>{{conBinding.applicationProfileName}}</clr-dg-cell>
+        </clr-dg-row>
+        <clr-dg-footer>
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
+          {{pagination.totalItems}} tenants
+          <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
+        </clr-dg-footer>
+      </clr-datagrid>
+      <button role="tooltip" aria-haspopup="true"
+        class="tooltip tooltip-sm tooltip-top-right hover btn btn-sm btn-link button-refresh" (click)="getConBindings()">
+        <clr-icon shape="refresh"></clr-icon>
+        <span class="tooltip-content tooltip-refresh">Refresh conbindingbinding list</span>
+      </button>
+      <button class="btn btn-sm btn-secondary" (click)="openConBindingModal()" [disabled]="conBindingdatagridloading">Contract Binding </button>
+  
+        <!---------------------------CREATE ConBinding------------------------------------------------>
+  
+      <form (ngSubmit)="createConBindingSubmit()" [hidden]="submitted" novalidate>
+        <clr-modal [(clrModalOpen)]="conBindingaddmodal" [clrModalSize]="'x0.5'">
+          <h3 class="modal-title">Contract Binding</h3>
+          <div class="modal-body">
+            <section class="form-block">
+                <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="conBindingaddform">
+                      <clr-select-container>
+                        <label>Application Profile Name *</label><br/>
+                        <select clrSelect name="applicationProfileName" [(ngModel)]="applicationProfileName" formControlName="applicationProfileName">
+                            <option value="ap1">Ap1</option>
+                            <option value="ap2">Ap2</option>
+                            <option value="ap3">Ap3</option>
+                        </select>
+                      </clr-select-container>
+                  </div>
+              
+               
+                
+                  <div class="form-group textarea-group" [formGroup]="conBindingaddform">
+                      <clr-select-container>
+                        <label>Epg Name *</label><br/>
+                        <select clrSelect name="epgName" [(ngModel)]="epgName" formControlName="epgName">
+                            <option value="epg1">EPG1</option>
+                            <option value="epg2">EPG2</option>
+                        </select>
+                      </clr-select-container>
+                  </div>
+                </div>
+              
+                <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="conBindingaddform">
+                      <clr-select-container>
+                        <label>Provided Contract *</label><br/>
+                        <select clrSelect name="providedContract" [(ngModel)]="providedContract" formControlName="providedContract">
+                            <option value="contract1">Contract1</option>
+                            <option value="contract2">Contract2</option>
+                            <option value="contract3">Contract3</option>
+                        </select>
+                      </clr-select-container>
+                  </div>
+                
+                
+                        <div class="form-group textarea-group" [formGroup]="conBindingaddform">
+                            <clr-select-container>
+                              <label>Consumed Contract *</label><br/>
+                              <select clrSelect name="consumedContract" [(ngModel)]="consumedContract" formControlName="consumedContract">
+                                  <option value="contract1">Contract1</option>
+                                  <option value="contract2">Contract2</option>
+                                  <option value="contract3">Contract3</option>
+                              </select>
+                            </clr-select-container>
+                        </div>
+                      </div>
+                      
+                <!-- <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="conBindingaddform">
+                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(conBindingaddform, 'conbindingPolicyName')}">
+                      <input type="text" id="conbindingPolicyName" formControlName="conbindingPolicyName" placeholder="Subject Name *">
+                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                          [ngClass]="{'icon-transparent' : !isInvalid(conBindingaddform, 'conbindingPolicyName')}">
+                        </clr-icon>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(conBindingaddform, 'conbindingPolicyName')">Invalid
+                          syntax for login: Valid special characters are: . - _</span>
+                      </a>
+                    </div>
+                  </div>
+                </div> -->
+            </section>
+          </div>
+    
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" (click)="createConBindingCancel(conBindingaddform)">Cancel</button>
+            <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': conBindingaddform.invalid}">Create</button>
+          </div>
+        </clr-modal>
+      </form>
+    </div>
+  </div>

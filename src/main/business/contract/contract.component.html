@@ -57,9 +57,9 @@
             <section class="form-block">
                 <div class="form-line line-description">
                   <div class="form-group textarea-group" [formGroup]="contractaddform">
-                      <clr-select-container>
+                      <clr-select-container style="width: 150px;">
                         <label>Select Contract Type *</label><br/>
-                        <select clrSelect name="contractType" [(ngModel)]="contractType" formControlName="contractType">
+                        <select clrSelect name="contractType" [(ngModel)]="contractType" formControlName="contractType" style="width: 100%;">
                             <option value="standard">Standard</option>
                             <option value="taboos">Taboos</option>
                             <option value="imported">Imported</option>
@@ -69,9 +69,9 @@
                 </div>
                 <div class="form-line line-description">
                   <div class="form-group textarea-group" [formGroup]="contractaddform">
-                      <clr-select-container>
+                      <clr-select-container style="width: 160px;">
                         <label>Select Contract Subject *</label><br/>
-                        <select clrSelect name="contractSubject" [(ngModel)]="contractSubject" formControlName="contractSubject">
+                        <select clrSelect name="contractSubject" [(ngModel)]="contractSubject" formControlName="contractSubject" style="width: 100%;">
                             <option value="subject1">Subject1</option>
                             <option value="subject2">Subject2</option>
                         </select>
@@ -80,9 +80,9 @@
                 </div>
                 <div class="form-line line-description">
                   <div class="form-group textarea-group" [formGroup]="contractaddform">
-                      <clr-select-container>
+                      <clr-select-container style="width: 150px;">
                         <label>Select Contract Filter *</label><br/>
-                        <select clrSelect name="contractFilter" [(ngModel)]="contractFilter" formControlName="contractFilter">
+                        <select clrSelect name="contractFilter" [(ngModel)]="contractFilter" formControlName="contractFilter" style="width: 100%;">
                             <option value="filter1">Filter1</option>
                             <option value="filter2">Filter2</option>
                             <option value="filter3">Filter3</option>
