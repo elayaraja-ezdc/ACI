@@ -56,9 +56,9 @@
             <section class="form-block">
                 <div class="form-line line-description">
                   <div class="form-group textarea-group" [formGroup]="conBindingaddform">
-                      <clr-select-container>
+                      <clr-select-container style="width: 200px;">
                         <label>Application Profile Name *</label><br/>
-                        <select clrSelect name="applicationProfileName" [(ngModel)]="applicationProfileName" formControlName="applicationProfileName">
+                        <select clrSelect name="applicationProfileName" [(ngModel)]="applicationProfileName" formControlName="applicationProfileName" style="width: 76%;">
                             <option value="ap1">Ap1</option>
                             <option value="ap2">Ap2</option>
                             <option value="ap3">Ap3</option>
@@ -69,9 +69,9 @@
                
                 
                   <div class="form-group textarea-group" [formGroup]="conBindingaddform">
-                      <clr-select-container>
+                      <clr-select-container style="width: 150px;">
                         <label>Epg Name *</label><br/>
-                        <select clrSelect name="epgName" [(ngModel)]="epgName" formControlName="epgName">
+                        <select clrSelect name="epgName" [(ngModel)]="epgName" formControlName="epgName" style="width: 100%;">
                             <option value="epg1">EPG1</option>
                             <option value="epg2">EPG2</option>
                         </select>
@@ -81,9 +81,9 @@
               
                 <div class="form-line line-description">
                   <div class="form-group textarea-group" [formGroup]="conBindingaddform">
-                      <clr-select-container>
-                        <label>Provided Contract *</label><br/>
-                        <select clrSelect name="providedContract" [(ngModel)]="providedContract" formControlName="providedContract">
+                      <clr-select-container style="width: 150px;">
+                        <label>Add Provided Contract *</label><br/>
+                        <select clrSelect name="providedContract" [(ngModel)]="providedContract" formControlName="providedContract" style="width: 100%;">
                             <option value="contract1">Contract1</option>
                             <option value="contract2">Contract2</option>
                             <option value="contract3">Contract3</option>
@@ -93,9 +93,9 @@
                 
                 
                         <div class="form-group textarea-group" [formGroup]="conBindingaddform">
-                            <clr-select-container>
-                              <label>Consumed Contract *</label><br/>
-                              <select clrSelect name="consumedContract" [(ngModel)]="consumedContract" formControlName="consumedContract">
+                            <clr-select-container style="width: 150px;">
+                              <label>Add Consumed Contract *</label><br/>
+                              <select clrSelect name="consumedContract" [(ngModel)]="consumedContract" formControlName="consumedContract" style="width: 100%;">
                                   <option value="contract1">Contract1</option>
                                   <option value="contract2">Contract2</option>
                                   <option value="contract3">Contract3</option>

@@ -16,15 +16,16 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 export class ContractComponent implements OnInit {
   contracts: Contract[];
   selectedContract: Contract;
-  contractdatagridloading: boolean = false;
-  contractaddmodal: boolean = false;
-  contractdetailsmodal: boolean = false;
+  contractDataGridLoading: boolean = false;
+  contractAddModal: boolean = false;
+  contractDetailsModal: boolean = false;
   showContractAcknowledge: boolean = false;
 
-  contractaddform = new FormGroup({
+  contractAddForm = new FormGroup({
     contractType: new FormControl(''),
-    contractSubject: new FormControl(''),
-    contractFilter: new FormControl('')
+    contractSubject: new FormControl('',[Validators.required]),
+    contractFilter: new FormControl(''),
+    contractName: new FormControl('',[Validators.required])
   });
 
   
@@ -35,43 +36,43 @@ export class ContractComponent implements OnInit {
   }
 
   openContractModal() {
-    this.contractaddmodal = true;
-    this.contractaddform.reset();
+    this.contractAddModal = true;
+    this.contractAddForm.reset();
   }
 
   getContracts(): void {
-    this.contractdatagridloading = true;
+    this.contractDataGridLoading = true;
     this.lumextService.getContracts().subscribe(contracts => {
       this.contracts = contracts;
-      this.contractdatagridloading = false;
+      this.contractDataGridLoading = false;
     }, (err) => {
-      this.contractdatagridloading = false;
+      this.contractDataGridLoading = false;
     });
     this.selectedContract = null;
   }
 
   // Tenant Creation form submit
   createContractSubmit() {
-    if (this.contractaddform.valid) {
-      this.contractdatagridloading = true;
-      this.contractaddmodal = false;
-      var jsonData = this.contractaddform.value;
+    if (this.contractAddForm.valid) {
+      this.contractDataGridLoading = true;
+      this.contractAddModal = false;
+      var jsonData = this.contractAddForm.value;
       jsonData["operation"] = "AddContract";
-      this.lumextService.addContract(JSON.stringify(this.contractaddform.value)).subscribe(res => {
+      this.lumextService.addContract(JSON.stringify(this.contractAddForm.value)).subscribe(res => {
         console.log("Contract Creation response Text"+JSON.stringify(res));
-        this.contractaddform.reset();
-        this.contractdatagridloading = false;
+        this.contractAddForm.reset();
+        this.contractDataGridLoading = false;
         //this.getContracts();
       }, (err) => {
         //this.getContracts();
         this.showContractAcknowledge = true;
-        this.contractdatagridloading = false;
+        this.contractDataGridLoading = false;
       });
     }
   }
 
   createContractCancel(form: NgForm) {
-    this.contractaddmodal = false;
+    this.contractAddModal = false;
     form.reset();
   }
 

@@ -45,70 +45,87 @@
         <clr-icon shape="refresh"></clr-icon>
         <span class="tooltip-content tooltip-refresh">Refresh Contract list</span>
       </button>
-      <button class="btn btn-sm btn-secondary" (click)="openContractModal()" [disabled]="contractdatagridloading">Create
+      <button class="btn btn-sm btn-secondary" (click)="openContractModal()" [disabled]="contractDataGridLoading">Create
         Contract</button>
   
         <!---------------------------CREATE Contract------------------------------------------------>
   
       <form (ngSubmit)="createContractSubmit()" [hidden]="submitted" novalidate>
-        <clr-modal [(clrModalOpen)]="contractaddmodal" [clrModalSize]="'x0.5'">
+        <clr-modal [(clrModalOpen)]="contractAddModal" [clrModalSize]="'x0.5'">
           <h3 class="modal-title">Create Contract</h3>
           <div class="modal-body">
             <section class="form-block">
-                <div class="form-line line-description">
-                  <div class="form-group textarea-group" [formGroup]="contractaddform">
-                      <clr-select-container style="width: 150px;">
-                        <label>Select Contract Type *</label><br/>
-                        <select clrSelect name="contractType" [(ngModel)]="contractType" formControlName="contractType" style="width: 100%;">
-                            <option value="standard">Standard</option>
-                            <option value="taboos">Taboos</option>
-                            <option value="imported">Imported</option>
-                        </select>
-                      </clr-select-container>
+              <div class="form-line line-description">
+                <div class="form-group textarea-group" [formGroup]="contractAddForm">
+                    <clr-select-container style="width: 150px;">
+                      <label>Select Contract Type *</label><br/>
+                      <select clrSelect name="contractType" [(ngModel)]="contractType" formControlName="contractType" style="width: 100%;">
+                          <option value="standard">Standard</option>
+                          <option value="taboos">Taboos</option>
+                          <option value="imported">Imported</option>
+                      </select>
+                    </clr-select-container>
+                </div>
+              </div>
+              <div class="form-line line-description">
+                <div class="form-group textarea-group" [formGroup]="contractAddForm" >
+                  <div class="input-group" [ngClass]="{'invalid-input': isInvalid(contractAddForm, 'contractName')}" >
+                    <input type="text" id="contractName" formControlName="contractName" placeholder=" Contract Name *">
+                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                      <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                        [ngClass]="{'icon-transparent' : !isInvalid(contractAddForm, 'contractName')}">
+                      </clr-icon>
+                      <span class="tooltip-content error-message" *ngIf="isInvalid(contractAddForm, 'contractName')">
+                        Invalid syntax for contractName: Valid special characters are: . - _</span>
+                    </a>
                   </div>
                 </div>
-                <div class="form-line line-description">
-                  <div class="form-group textarea-group" [formGroup]="contractaddform">
-                      <clr-select-container style="width: 160px;">
-                        <label>Select Contract Subject *</label><br/>
-                        <select clrSelect name="contractSubject" [(ngModel)]="contractSubject" formControlName="contractSubject" style="width: 100%;">
-                            <option value="subject1">Subject1</option>
-                            <option value="subject2">Subject2</option>
-                        </select>
-                      </clr-select-container>
+                </div>
+              <div class="form-line line-description">
+                <div class="form-group textarea-group" [formGroup]="contractAddForm" >
+                  <div class="input-group" [ngClass]="{'invalid-input': isInvalid(contractAddForm, 'contractSubject')}" >
+                    <input type="text" id="contractSubject" formControlName="contractSubject" placeholder=" Contract Subject *">
+                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                      <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                        [ngClass]="{'icon-transparent' : !isInvalid(contractAddForm, 'contractSubject')}">
+                      </clr-icon>
+                      <span class="tooltip-content error-message" *ngIf="isInvalid(contractAddForm, 'contractSubject')">
+                        Invalid syntax for contractSubject: Valid special characters are: . - _</span>
+                    </a>
                   </div>
                 </div>
-                <div class="form-line line-description">
-                  <div class="form-group textarea-group" [formGroup]="contractaddform">
-                      <clr-select-container style="width: 150px;">
-                        <label>Select Contract Filter *</label><br/>
-                        <select clrSelect name="contractFilter" [(ngModel)]="contractFilter" formControlName="contractFilter" style="width: 100%;">
-                            <option value="filter1">Filter1</option>
-                            <option value="filter2">Filter2</option>
-                            <option value="filter3">Filter3</option>
-                        </select>
-                      </clr-select-container>
+                </div>
+              <div class="form-line line-description">
+                <div class="form-group textarea-group" [formGroup]="contractAddForm">
+                    <clr-select-container style="width: 150px;">
+                      <label>Select Contract Filter *</label><br/>
+                      <select clrSelect name="contractFilter" [(ngModel)]="contractFilter" formControlName="contractFilter" style="width: 100%;">
+                          <option value="filter1">Filter1</option>
+                          <option value="filter2">Filter2</option>
+                          <option value="filter3">Filter3</option>
+                      </select>
+                    </clr-select-container>
+                </div>
+              </div>
+              <!-- <div class="form-line line-description">
+                <div class="form-group textarea-group" [formGroup]="contractaddform">
+                  <div class="input-group" [ngClass]="{'invalid-input': isInvalid(contractaddform, 'contractPolicyName')}">
+                    <input type="text" id="contractPolicyName" formControlName="contractPolicyName" placeholder="Subject Name *">
+                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                      <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                        [ngClass]="{'icon-transparent' : !isInvalid(contractaddform, 'contractPolicyName')}">
+                      </clr-icon>
+                      <span class="tooltip-content error-message" *ngIf="isInvalid(contractaddform, 'contractPolicyName')">Invalid
+                        syntax for login: Valid special characters are: . - _</span>
+                    </a>
                   </div>
                 </div>
-                <!-- <div class="form-line line-description">
-                  <div class="form-group textarea-group" [formGroup]="contractaddform">
-                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(contractaddform, 'contractPolicyName')}">
-                      <input type="text" id="contractPolicyName" formControlName="contractPolicyName" placeholder="Subject Name *">
-                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
-                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                          [ngClass]="{'icon-transparent' : !isInvalid(contractaddform, 'contractPolicyName')}">
-                        </clr-icon>
-                        <span class="tooltip-content error-message" *ngIf="isInvalid(contractaddform, 'contractPolicyName')">Invalid
-                          syntax for login: Valid special characters are: . - _</span>
-                      </a>
-                    </div>
-                  </div>
-                </div> -->
+              </div> -->
             </section>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline" (click)="createContractCancel(contractaddform)">Cancel</button>
-            <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': contractaddform.invalid}">Create</button>
+            <button type="button" class="btn btn-outline" (click)="createContractCancel(contractAddForm)">Cancel</button>
+            <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': contractAddForm.invalid}">Create</button>
           </div>
         </clr-modal>
       </form>
