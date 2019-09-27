@@ -14,7 +14,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 
 export class ConBindingComponent implements OnInit {
-  conBindings: ConBinding[];
+  conBindings: conBinding[];
   selectedConBinding: ConBinding;
   conBindingdatagridloading: boolean = false;
   conBindingaddmodal: boolean = false;
