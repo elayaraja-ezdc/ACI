@@ -57,7 +57,7 @@
               <h3 class="modal-title">Create Application Profile</h3>
               <div class="modal-body">
                 <section class="form-block">
-                    <div class="form-line line-description" style="width:100%">
+                    <!-- <div class="form-line line-description" style="width:100%">
                         <div class="form-group textarea-group" [formGroup]="applicationProfileAddForm">
                           <div class="input-group" [ngClass]="{'invalid-input': isInvalid(applicationProfileAddForm, 'tenantName')}">
                             <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
@@ -70,11 +70,11 @@
                             </a>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     <div class="form-line line-description" style="width:100%">
                       <div class="form-group textarea-group" [formGroup]="applicationProfileAddForm">
                         <div class="input-group" [ngClass]="{'invalid-input': isInvalid(applicationProfileAddForm, 'ApplicationProfileName')}"style="width: 100%">
-                          <input type="text" id="ApplicationProfileName" formControlName="ApplicationProfileName" placeholder="Application Profile Name *" >
+                          <input type="text" id="ApplicationProfileName" formControlName="ApplicationProfileName" placeholder="Application Profile Name *" style="width:100%">
                           <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                             <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
                               [ngClass]="{'icon-transparent' : !isInvalid(applicationProfileAddForm, 'ApplicationProfileName')}">

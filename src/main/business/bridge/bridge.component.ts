@@ -15,6 +15,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 export class BridgeComponent implements OnInit {
+  orgName: String;
   bridges: Bridge[];
   selectedBridge: Bridge;
   bridgeDataGridLoading: boolean = false;
@@ -23,37 +24,49 @@ export class BridgeComponent implements OnInit {
   showBridgeAcknowledge: boolean = false;
 
   bridgeaddform = new FormGroup({
-    TenantName: new FormControl('', [Validators.required]),
+    //TenantName: new FormControl('', [Validators.required]),
     BDName: new FormControl('', [Validators.required]),
     Description: new FormControl(''),
-    Type: new FormControl('', [Validators.required]),
+    // Type: new FormControl('', [Validators.required]),
     VRF: new FormControl('', [Validators.required]),
-    L2UnknownUnicast: new FormControl('', [Validators.required]),
-    L3UnknownMultiCastFlooding: new FormControl('', [Validators.required]),
-    MutliDestinationFlooding: new FormControl('', [Validators.required]),
-    ARPFlooding: new FormControl(''),
-    EndpointDataplaneLearning: new FormControl(''),
-    LimitIPLearningToSubnet: new FormControl(''),
-    UnicastRouting: new FormControl(''),
-    mac: new FormControl(''),
-    vmac: new FormControl(''),
+    // L2UnknownUnicast: new FormControl('', [Validators.required]),
+    // L3UnknownMultiCastFlooding: new FormControl('', [Validators.required]),
+    // MutliDestinationFlooding: new FormControl('', [Validators.required]),
+    // ARPFlooding: new FormControl(),
+    // EndpointDataplaneLearning: new FormControl(''),
+    // LimitIPLearningToSubnet: new FormControl(''),
+    // UnicastRouting: new FormControl(''),
+    // mac: new FormControl(''),
+    // vmac: new FormControl(''),
     ip1: new FormControl(''),
-    ip1Virtual: new FormControl(''),
-    ip1Preferred: new FormControl(''),
-    ip2: new FormControl(''),
-    ip2Virtual: new FormControl(''),
-    ip2Preferred: new FormControl('')
+    // ip1Virtual: new FormControl(''),
+    // ip1Preferred: new FormControl(''),
+    // ip2: new FormControl(''),
+    // ip2Virtual: new FormControl(''),
+    // ip2Preferred: new FormControl('')
   });
 
   constructor(private lumextService: LumextService) { }
 
   ngOnInit(): void {
     //this.getBridges();
+    this.getCurrentOrgName();
   }
 
   openBridgeModal() {
     this.bridgeaddmodal = true;
     this.bridgeaddform.reset();
+  }
+
+  getCurrentOrgName(): void {
+    this.lumextService.getOrgPath().subscribe(orgName => {
+      console.log("Get the organisation name of VCD:"+orgName);
+      this.orgName = orgName;
+      this.bridgeDataGridLoading = false;
+    }, (err) => {
+      console.log("Get Organisation name error"+err);
+      this.bridgeDataGridLoading = false;
+    });
   }
 
   getBridges(): void {
@@ -73,7 +86,8 @@ export class BridgeComponent implements OnInit {
       this.bridgeDataGridLoading = true;
       this.bridgeaddmodal = false;
       var jsonData = this.bridgeaddform.value;
-      jsonData["operation"] = "AddBridgeDomain"; 
+      jsonData["operation"] = "AddBridgeDomain";
+      jsonData["TenantName"] = this.orgName; 
       this.lumextService.addBridge(JSON.stringify(this.bridgeaddform.value)).subscribe(res => {
         this.bridgeaddform.reset();
         this.bridgeDataGridLoading = false;

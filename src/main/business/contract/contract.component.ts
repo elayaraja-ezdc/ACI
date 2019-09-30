@@ -14,6 +14,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 
 export class ContractComponent implements OnInit {
+  orgName: string;
   contracts: Contract[];
   selectedContract: Contract;
   contractDataGridLoading: boolean = false;
@@ -26,7 +27,7 @@ export class ContractComponent implements OnInit {
     contractSubjectName: new FormControl('',[Validators.required]),
     contractFilterName: new FormControl('',[Validators.required]),
     contractName: new FormControl('',[Validators.required]),
-    tenantName: new FormControl('',[Validators.required])
+    //tenantName: new FormControl('',[Validators.required])
   });
 
   
@@ -34,11 +35,23 @@ export class ContractComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getContracts();
+    this.getCurrentOrgName();
   }
 
   openContractModal() {
     this.contractAddModal = true;
     this.contractAddForm.reset();
+  }
+
+  getCurrentOrgName(): void {
+    this.lumextService.getOrgPath().subscribe(orgName => {
+      console.log("Get the organisation Name of VCD"+orgName);
+      this.orgName = orgName;
+      this.contractDataGridLoading = false;
+    }, (err) => {
+      console.log("Get Organisation name error "+err);
+      this.contractDataGridLoading = false;
+    });
   }
 
   getContracts(): void {
@@ -59,6 +72,7 @@ export class ContractComponent implements OnInit {
       this.contractAddModal = false;
       var jsonData = this.contractAddForm.value;
       jsonData["operation"] = "AddContract";
+      jsonData["tenantName"] = this.orgName;
       this.lumextService.addContract(JSON.stringify(this.contractAddForm.value)).subscribe(res => {
         console.log("Contract Creation response Text"+JSON.stringify(res));
         this.contractAddForm.reset();

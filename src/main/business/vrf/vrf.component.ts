@@ -14,6 +14,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 
 export class VrfComponent implements OnInit {
+  orgName: string;
   vrfs: Vrf[];
   selectedVrf: Vrf;
   vrfDataGridLoading: boolean = false;
@@ -26,7 +27,7 @@ export class VrfComponent implements OnInit {
     vrfName: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z]*/),Validators.maxLength(25)]),
     pControlEnforcementPref: new FormControl('Unenforced',Validators.required),
     pControlEnforcementDir: new FormControl('Egress',Validators.required),
-    tenantName : new FormControl('')
+    //tenantName : new FormControl('')
   });
 
   
@@ -34,11 +35,23 @@ export class VrfComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getvrfs();
+    this.getCurrentOrgName();
   }
 
   openVrfModal() {
     this.vrfAddModal = true;
     this.vrfAddForm.reset();
+  }
+
+  getCurrentOrgName(): void {
+    this.lumextService.getOrgPath().subscribe(orgName => {
+      console.log("Get the organisation name of VCD:"+orgName);
+      this.orgName = orgName;
+      this.vrfDataGridLoading = false;
+    }, (err) => {
+      console.log("Get Organisation name error"+err);
+      this.vrfDataGridLoading = false;
+    });
   }
 
   getVrfs(): void {
@@ -59,6 +72,7 @@ export class VrfComponent implements OnInit {
       this.vrfAddModal = false;
       var jsonData = this.vrfAddForm.value;
       jsonData["operation"] = "AddVrf";
+      jsonData["tenantName"] = this.orgName;
       this.lumextService.addVrf(JSON.stringify(this.vrfAddForm.value)).subscribe(res => {
         console.log("Tenant Creation response Text"+JSON.stringify(res));
         this.vrfAddForm.reset();

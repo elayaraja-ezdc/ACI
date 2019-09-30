@@ -15,6 +15,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 export class EPGComponent implements OnInit {
+  orgName: string;
   epgs: Epg[];
   selectedEpg: Epg;
   epgDataGridLoading: boolean = false;
@@ -22,15 +23,14 @@ export class EPGComponent implements OnInit {
   epgDetailsModal: boolean = false;
   showEpgAcknowledge: boolean = false;
   //Default Drop Down value
-  existingBD: string = 'default';
   intraEPG: string = 'Enforced';
   grpMember: string = 'Exclude';
-  addNewTenant: string = 'Yes';
+
 
   epgAddForm = new FormGroup({
     addNewTenant: new FormControl(''),
-    tenantName: new FormControl('', [Validators.required]),
-    addNewBridgeDomain: new FormControl(''),
+    //tenantName: new FormControl('', [Validators.required]),
+    //addNewBridgeDomain: new FormControl(''),
     existingBD: new FormControl(''),
     applicationProfileName: new FormControl('', [Validators.required]),
     description: new FormControl(''),
@@ -47,11 +47,23 @@ export class EPGComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getEpgs();
+    this.getCurrentOrgName();
   }
 
   openEpgModal() {
     this.epgAddModal = true;
     this.epgAddForm.reset();
+  }
+
+  getCurrentOrgName(): void {
+    this.lumextService.getOrgPath().subscribe(orgName => {
+      console.log("Get the organisationname of VCD:"+orgName);
+      this.orgName = orgName;
+      this.epgDataGridLoading = false;
+    }, (err) => {
+      console.log("Get Organisation name error"+err);
+      this.epgDataGridLoading = false;
+    });
   }
 
   getEpgs(): void {
@@ -72,9 +84,9 @@ export class EPGComponent implements OnInit {
       this.epgAddModal = false;
       var jsonData = this.epgAddForm.value;
       jsonData["operation"] = "AddEPG";
-      jsonData["existingBD"] = this.existingBD;
       jsonData["intraEPG"] = this.intraEPG;
-      jsonData["grpMember"] = this.grpMember; 
+      jsonData["grpMember"] = this.grpMember;
+      jsonData["tenantName"] = this.orgName; 
       this.lumextService.addEpg(JSON.stringify(this.epgAddForm.value)).subscribe(res => {
         this.epgAddForm.reset();
         this.epgDataGridLoading = false;

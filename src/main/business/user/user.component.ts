@@ -14,6 +14,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 
 export class UserComponent implements OnInit {
+  orgName: string;
   users: User[];
   selectedUser: User;
   userdatagridloading: boolean = false;
@@ -30,11 +31,24 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getUsers();
+    this.getCurrentOrgName();
   }
 
   openUserModal() {
     this.useraddmodal = true;
     this.useraddform.reset();
+  }
+
+  getCurrentOrgName(): void {
+    this.userdatagridloading = true;
+    this.lumextService.getOrgPath().subscribe(orgName => {
+      console.log("Get the organisation name of VCD:"+orgName);
+      this.orgName = orgName;
+      this.userdatagridloading = false;
+    }, (err) => {
+      console.log("Get organisation error "+err);
+      this.userdatagridloading = false;
+    });
   }
 
   getUsers(): void {
@@ -54,6 +68,7 @@ export class UserComponent implements OnInit {
       this.userdatagridloading = true;
       this.useraddmodal = false;
       var jsonData = this.useraddform.value;
+      console.log("Current Org Name:-->"+this.OrgName);
       jsonData["operation"] = "AddTenant";
       this.lumextService.addUser(JSON.stringify(this.useraddform.value)).subscribe(res => {
         console.log("Tenant Creation response Text"+JSON.stringify(res));

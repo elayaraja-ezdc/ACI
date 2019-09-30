@@ -14,6 +14,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 
 export class ApplicationProfileComponent implements OnInit {
+  orgName: string;
   applicationProfiles: ApplicationProfile[];
   selectedApplicationProfile: ApplicationProfile;
   applicationProfileDataGridLoading: boolean = false;
@@ -23,7 +24,7 @@ export class ApplicationProfileComponent implements OnInit {
 
   applicationProfileAddForm = new FormGroup({
 
-    tenantName: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z]*/),Validators.maxLength(25)]),
+    //tenantName: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z]*/),Validators.maxLength(25)]),
     ApplicationProfileName: new FormControl(''),
     Description: new FormControl('')
     
@@ -34,11 +35,23 @@ export class ApplicationProfileComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getapplicationprofiles();
+    this.getCurrentOrgName();
   }
 
   openApplicationProfileModal() {
     this.applicationProfileAddModal = true;
     this.applicationProfileAddForm.reset();
+  }
+
+  getCurrentOrgName(): void {
+    this.lumextService.getOrgPath().subscribe(orgName => {
+      console.log("Get the organisation name of VCD:"+orgName);
+      this.orgName = orgName;
+      this.applicationProfileDataGridLoading = false;
+    }, (err) => {
+      console.log("Get Organisation name error "+err);
+      this.applicationProfileDataGridLoading = false;
+    });
   }
 
   getApplicationProfiles(): void {
@@ -59,6 +72,7 @@ export class ApplicationProfileComponent implements OnInit {
       this.applicationProfileAddModal = false;
       var jsonData = this.applicationProfileAddForm.value;
       jsonData["operation"] = "Addapplicationprofile";
+      jsonData["tenantName"] = this.orgName;
       this.lumextService.addApplicationProfile(JSON.stringify(this.applicationProfileAddForm.value)).subscribe(res => {
         console.log("Tenant Creation response Text"+JSON.stringify(res));
         this.applicationProfileAddForm.reset();

@@ -14,7 +14,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 
 export class ConBindingComponent implements OnInit {
-  conBindings: conBinding[];
+  orgName: string;
+  conBindings: conBindings[];
   selectedConBinding: ConBinding;
   conBindingdatagridloading: boolean = false;
   conBindingaddmodal: boolean = false;
@@ -22,8 +23,8 @@ export class ConBindingComponent implements OnInit {
   showConBindingAcknowledge: boolean = false;
 
   conBindingaddform = new FormGroup({
-    applicationProfileName: new FormControl(''),
-    epgName: new FormControl(''),
+    applicationProfileName: new FormControl('',[Validators.required]),
+    epgName: new FormControl('',[Validators.required]),
     providedContract: new FormControl(''),
     consumedContract: new FormControl('')
   });
@@ -33,6 +34,18 @@ export class ConBindingComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getConBindings();
+    this.getCurrentOrgName();
+  }
+
+  getCurrentOrgName(): void {
+    this.lumextService.getOrgPath().subscribe(orgName => {
+      console.log("Get the organisation of VCD"+orgName);
+      this.orgName = orgName;
+      this.conBindingdatagridloading = false;
+    }, (err) => {
+      console.log("Get Organisation Name error"+err);
+      this.conBindingdatagridloading = false;
+    });
   }
 
   openConBindingModal() {
@@ -57,9 +70,9 @@ export class ConBindingComponent implements OnInit {
       this.conBindingdatagridloading = true;
       this.conBindingaddmodal = false;
       var jsonData = this.conBindingaddform.value;
-       jsonData["operation"] = "AddContractBinding";
-      // console.log("ORG ID:"+this.lumextService.getOrgId());
-      // jsonData["tenantName"] = this.lumextService.getOrgId();
+      jsonData["operation"] = "AddContractBinding";
+      console.log("Contract binding ORG Name:"+this.orgName);
+      jsonData["tenantName"] = this.orgName;
       this.lumextService.addConBinding(JSON.stringify(this.conBindingaddform.value)).subscribe(res => {
         console.log("ConBinding Creation response Text"+JSON.stringify(res));
         this.conBindingaddform.reset();

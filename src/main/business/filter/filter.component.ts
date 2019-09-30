@@ -14,6 +14,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 
 export class FilterComponent implements OnInit {
+  orgName: string;
   filters: Filter[];
   selectedFilter: Filter;
   filterDataGridLoading: boolean = false;
@@ -22,7 +23,7 @@ export class FilterComponent implements OnInit {
   showFilterAcknowledge: boolean = false;
 
   filterAddForm = new FormGroup({
-    tenantName : new FormControl(' ',[Validators.required]),
+    //tenantName : new FormControl(' ',[Validators.required]),
     filterName : new FormControl(' ',[Validators.required]),
     dFromPort: new FormControl('',[Validators.required]),
     dToPort: new FormControl('',[Validators.required]),
@@ -35,11 +36,23 @@ export class FilterComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getFilters();
+    this.getCurrentOrgName();
   }
 
   openFilterModal() {
     this.filterAddModal = true;
     this.filterAddForm.reset();
+  }
+
+  getCurrentOrgName(): void {
+    this.lumextService.getOrgPath().subscribe(orgName => {
+      console.log("Get the organisation name of VCD"+orgName);
+      this.orgName = orgName;
+      this.filterDataGridLoading = false;
+    }, (err) => {
+      console.log("Get Organisation name error "+err);
+      this.filterDataGridLoading = false;
+    });
   }
 
   getFilters(): void {
@@ -61,7 +74,7 @@ export class FilterComponent implements OnInit {
       var jsonData = this.filterAddForm.value;
       jsonData["operation"] = "AddFilter";
       // console.log("ORG ID:"+this.lumextService.getOrgId());
-      // jsonData["tenantName"] = this.lumextService.getOrgId();
+      jsonData["tenantName"] = this.orgName;
       this.lumextService.addFilter(JSON.stringify(this.filterAddForm.value)).subscribe(res => {
         console.log("Filter Creation response Text"+JSON.stringify(res));
         this.filterAddForm.reset();

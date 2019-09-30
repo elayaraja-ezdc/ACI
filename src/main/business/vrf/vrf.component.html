@@ -57,7 +57,7 @@
           <h3 class="modal-title">Create VRF</h3>
           <div class="modal-body">
             <section class="form-block">
-                <div class="form-line line-description">
+                <!-- <div class="form-line line-description">
                     <div class="form-group textarea-group" [formGroup]="vrfAddForm" style="width:100%">
                       <div class="input-group" [ngClass]="{'invalid-input': isInvalid(vrfAddForm, 'tenantName')}">
                         <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
@@ -70,11 +70,11 @@
                         </a>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 <div class="form-line line-description">
                   <div class="form-group textarea-group" [formGroup]="vrfAddForm" style="width:100%">
                     <div class="input-group" [ngClass]="{'invalid-input': isInvalid(vrfAddForm, 'vrfName')}">
-                      <input type="text" id="vrfName" formControlName="vrfName" placeholder="VRF *" >
+                      <input type="text" id="vrfName" formControlName="vrfName" placeholder="VRF *" style="width:100%">
                       <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                         <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
                           [ngClass]="{'icon-transparent' : !isInvalid(vrfAddForm, 'vrfName')}">
