@@ -47,26 +47,26 @@
                 <section class="form-block">
             <div class="form-line">
                         <div class="form-group" [formGroup]="bridgeaddform">
-                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'tenantName')}">
-                                <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'TenantName')}">
+                                <input type="text" id="TenantName" formControlName="TenantName" placeholder="Tenant Name *">
                                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                                 <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'tenantName')}">
+                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'TenantName')}">
                                 </clr-icon>
-                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'tenantName')">
-                                    Invalid syntax for tenantName: Valid special characters are: . - _</span>
+                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'TenantName')">
+                                    Invalid syntax for TenantName: Valid special characters are: . - _</span>
                                 </a>
                             </div>
                         </div>
                         <div class="form-group" [formGroup]="bridgeaddform">
-                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'bridgeDomainName')}">
-                                <input type="text" id="bridgeDomainName" formControlName="bridgeDomainName" placeholder="Bridge Domain Name *">
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'BDName')}">
+                                <input type="text" id="BDName" formControlName="BDName" placeholder="Bridge Domain Name *">
                                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                                 <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'bridgeDomainName')}">
+                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'BDName')}">
                                 </clr-icon>
-                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'bridgeDomainName')">
-                                    Invalid syntax for bridgeDomainName: Valid special characters are: . - _</span>
+                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'BDName')">
+                                    Invalid syntax for BDName: Valid special characters are: . - _</span>
                                 </a>
                             </div>
                         </div>                    
@@ -74,73 +74,73 @@
                   
                   <div class="form-line">
                     <div class="form-group" [formGroup]="bridgeaddform">
-                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'bridgeType')}">
-                            <input type="text" id="bridgeType" formControlName="bridgeType" placeholder="Bridge Type *">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'Type')}">
+                            <input type="text" id="Type" formControlName="Type" placeholder="Bridge Type *">
                             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                             <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'bridgeType')}">
+                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'Type')}">
                             </clr-icon>
-                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'bridgeType')">
-                                Invalid syntax for bridgeType: Valid special characters are: . - _</span>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'Type')">
+                                Invalid syntax for Type: Valid special characters are: . - _</span>
                             </a>
                         </div>
                     </div>
                     <div class="form-group" [formGroup]="bridgeaddform">
-                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'vrf')}">
-                            <input type="text" id="vrf" formControlName="vrf" placeholder="VRF *">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'VRF')}">
+                            <input type="text" id="VRF" formControlName="VRF" placeholder="VRF *">
                             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                             <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'vrf')}">
+                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'VRF')}">
                             </clr-icon>
-                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'vrf')">
-                                Invalid syntax for vrf: Valid special characters are: . - _</span>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'VRF')">
+                                Invalid syntax for VRF: Valid special characters are: . - _</span>
                             </a>
                         </div>
                     </div>                    
                   </div>
                   <div class="form-line">
                     <div class="form-group" [formGroup]="bridgeaddform">
-                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'l2UnknownUnicast')}">
-                            <input type="text" id="l2UnknownUnicast" formControlName="l2UnknownUnicast" placeholder="L2 Unknown Unicast *">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'L2UnknownUnicast')}">
+                            <input type="text" id="L2UnknownUnicast" formControlName="L2UnknownUnicast" placeholder="L2 Unknown Unicast *">
                             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                             <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'l2UnknownUnicast')}">
+                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'L2UnknownUnicast')}">
                             </clr-icon>
-                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'l2UnknownUnicast')">
-                                Invalid syntax for l2UnknownUnicast: Valid special characters are: . - _</span>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'L2UnknownUnicast')">
+                                Invalid syntax for L2UnknownUnicast: Valid special characters are: . - _</span>
                             </a>
                         </div>
                     </div>
                     <div class="form-group" [formGroup]="bridgeaddform">
-                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'l3UnknownMultiCast')}">
-                            <input type="text" id="l3UnknownMultiCast" formControlName="l3UnknownMultiCast" placeholder="L3 Unknown MultiCast Flooding*">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'L3UnknownMultiCastFlooding')}">
+                            <input type="text" id="L3UnknownMultiCastFlooding" formControlName="L3UnknownMultiCastFlooding" placeholder="L3 Unknown MultiCast Flooding*">
                             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                             <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'l3UnknownMultiCast')}">
+                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'L3UnknownMultiCastFlooding')}">
                             </clr-icon>
-                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'l3UnknownMultiCast')">
-                                Invalid syntax for l3UnknownMultiCast: Valid special characters are: . - _</span>
+                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'L3UnknownMultiCastFlooding')">
+                                Invalid syntax for L3UnknownMultiCastFlooding: Valid special characters are: . - _</span>
                             </a>
                         </div>
                     </div>                    
                  </div>
                  <div class="form-line line-description">
                     <div class="form-group textarea-group" [formGroup]="bridgeaddform" >
-                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'mutliDestinationFlooding')}" style="width: 100%; margin: 0 18px;">
-                                <input type="text" id="mutliDestinationFlooding"  formControlName="mutliDestinationFlooding" placeholder="MultiDestination Flood*">
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'MutliDestinationFlooding')}" style="width: 100%; margin: 0 18px;">
+                                <input type="text" id="MutliDestinationFlooding"  formControlName="MutliDestinationFlooding" placeholder="MultiDestination Flood*">
                                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                                 <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'mutliDestinationFlooding')}">
+                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'MutliDestinationFlooding')}">
                                 </clr-icon>
-                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'mutliDestinationFlooding')">
-                                    Invalid syntax for mutliDestinationFlooding: Valid special characters are: . - _</span>
+                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'MutliDestinationFlooding')">
+                                    Invalid syntax for MutliDestinationFlooding: Valid special characters are: . - _</span>
                                 </a>
                             </div>
                     </div>
                  </div>  
                  <div class="form-line line-description">
                     <div class="form-group textarea-group" [formGroup]="bridgeaddform">
-                        <textarea id="description" formControlName="description" placeholder="Description" ngModel style="margin: 0 18px;"></textarea>
+                        <textarea id="Description" formControlName="Description" placeholder="Description" ngModel style="margin: 0 18px;"></textarea>
                     </div>
                   </div>
                   <div class="form-line">
@@ -148,11 +148,11 @@
                       <clr-radio-container clrInline>
                         <label>ARP Flooding</label><br/>
                         <clr-radio-wrapper>
-                          <input type="radio" clrRadio value="Yes" formControlName="arpFlooding"/>
+                          <input type="radio" clrRadio value="Yes" formControlName="ARPFlooding"/>
                           <label>Yes &nbsp;&nbsp;</label>
                         </clr-radio-wrapper>
                         <clr-radio-wrapper>
-                          <input type="radio" clrRadio value="No"  formControlName="arpFlooding" />
+                          <input type="radio" clrRadio value="No"  formControlName="ARPFlooding" />
                           <label>No</label>
                         </clr-radio-wrapper>
                       </clr-radio-container>
@@ -161,11 +161,11 @@
                         <clr-radio-container clrInline>
                             <label>Endpoint Dataplane Learning</label><br/>
                             <clr-radio-wrapper>
-                            <input type="radio" clrRadio value="Yes" formControlName="endPointDataplane"/>
+                            <input type="radio" clrRadio value="Yes" formControlName="EndpointDataplaneLearning"/>
                             <label>Yes &nbsp;&nbsp;</label>
                             </clr-radio-wrapper>
                             <clr-radio-wrapper>
-                            <input type="radio" clrRadio value="No"  formControlName="endPointDataplane" />
+                            <input type="radio" clrRadio value="No"  formControlName="EndpointDataplaneLearning" />
                             <label>No</label>
                             </clr-radio-wrapper>
                         </clr-radio-container>
@@ -177,11 +177,11 @@
                         <clr-radio-container clrInline>
                             <label>Unicast Routing</label><br/>
                             <clr-radio-wrapper>
-                            <input type="radio" clrRadio value="Yes" formControlName="unicastRouting"/>
+                            <input type="radio" clrRadio value="Yes" formControlName="UnicastRouting"/>
                             <label>Yes &nbsp;&nbsp;</label>
                             </clr-radio-wrapper>
                             <clr-radio-wrapper>
-                            <input type="radio" clrRadio value="No"  formControlName="unicastRouting" />
+                            <input type="radio" clrRadio value="No"  formControlName="UnicastRouting" />
                             <label>No</label>
                             </clr-radio-wrapper>
                         </clr-radio-container>
@@ -190,11 +190,11 @@
                             <clr-radio-container clrInline>
                             <label>Limit IP Learning to Subnet</label><br/>
                             <clr-radio-wrapper>
-                                <input type="radio" clrRadio value="Yes" formControlName="limitIp"/>
+                                <input type="radio" clrRadio value="Yes" formControlName="LimitIPLearningToSubnet"/>
                                 <label>Yes &nbsp;&nbsp;</label>
                             </clr-radio-wrapper>
                             <clr-radio-wrapper>
-                                <input type="radio" clrRadio value="No"  formControlName="limitIp" />
+                                <input type="radio" clrRadio value="No"  formControlName="LimitIPLearningToSubnet" />
                                 <label>No</label>
                             </clr-radio-wrapper>
                             </clr-radio-container>

@@ -14,10 +14,18 @@
                 <a clrVerticalNavLink routerLink="./user" class="no-selected"
                     [ngClass]="{selected: route ==='user', 'no-selected': route !=='user'}" class="child-menu">
                     Tenants
-                </a>                
+                </a>   
+                <a clrVerticalNavLink routerLink="./vrf" class="no-selected"
+                    [ngClass]="{selected: route ==='vrf', 'no-selected': route !=='vrf'}" class="child-menu">
+                   VRF
+                </a>             
                 <a clrVerticalNavLink routerLink="./bridge" class="no-selected"
                     [ngClass]="{selected: route ==='bridge', 'no-selected': route !=='bridge'}" class="child-menu">
                     Bridge Domain
+                </a>
+                <a clrVerticalNavLink routerLink="./applicationprofilename" class="no-selected"
+                    [ngClass]="{selected: route ==='applicationprofilename', 'no-selected': route !=='applicationprofilename'}" class="child-menu">
+                    Application Profile Name
                 </a>
                 <a clrVerticalNavLink routerLink="./epg" class="no-selected"
                     [ngClass]="{selected: route ==='epg', 'no-selected': route !=='epg'}" class="child-menu">

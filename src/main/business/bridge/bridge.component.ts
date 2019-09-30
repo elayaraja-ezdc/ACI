@@ -17,24 +17,24 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 export class BridgeComponent implements OnInit {
   bridges: Bridge[];
   selectedBridge: Bridge;
-  bridgedatagridloading: boolean = false;
+  bridgeDataGridLoading: boolean = false;
   bridgeaddmodal: boolean = false;
   bridgedetailsmodal: boolean = false;
   showBridgeAcknowledge: boolean = false;
 
   bridgeaddform = new FormGroup({
-    tenantName: new FormControl('', [Validators.required]),
-    bridgeDomainName: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
-    bridgeType: new FormControl('', [Validators.required]),
-    vrf: new FormControl('', [Validators.required]),
-    l2UnknownUnicast: new FormControl('', [Validators.required]),
-    l3UnknownMultiCast: new FormControl('', [Validators.required]),
-    mutliDestinationFlooding: new FormControl('', [Validators.required]),
-    arpFlooding: new FormControl(''),
-    endPointDataplane: new FormControl(''),
-    limitIp: new FormControl(''),
-    unicastRouting: new FormControl('')
+    TenantName: new FormControl('', [Validators.required]),
+    BDName: new FormControl('', [Validators.required]),
+    Description: new FormControl(''),
+    Type: new FormControl('', [Validators.required]),
+    VRF: new FormControl('', [Validators.required]),
+    L2UnknownUnicast: new FormControl('', [Validators.required]),
+    L3UnknownMultiCastFlooding: new FormControl('', [Validators.required]),
+    MutliDestinationFlooding: new FormControl('', [Validators.required]),
+    ARPFlooding: new FormControl(''),
+    EndpointDataplaneLearning: new FormControl(''),
+    LimitIPLearningToSubnet: new FormControl(''),
+    UnicastRouting: new FormControl('')
   });
 
   constructor(private lumextService: LumextService) { }

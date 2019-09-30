@@ -17,9 +17,9 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 export class EPGComponent implements OnInit {
   epgs: Epg[];
   selectedEpg: Epg;
-  epgdatagridloading: boolean = false;
-  epgaddmodal: boolean = false;
-  epgdetailsmodal: boolean = false;
+  epgDataGridLoading: boolean = false;
+  epgAddModal: boolean = false;
+  epgDetailsModal: boolean = false;
   showEpgAcknowledge: boolean = false;
   //Default Drop Down value
   existingBD: string = 'default';
@@ -27,7 +27,7 @@ export class EPGComponent implements OnInit {
   grpMember: string = 'Exclude';
   addNewTenant: string = 'Yes';
 
-  epgaddform = new FormGroup({
+  epgAddForm = new FormGroup({
     addNewTenant: new FormControl(''),
     tenantName: new FormControl('', [Validators.required]),
     addNewBridgeDomain: new FormControl(''),
@@ -50,45 +50,45 @@ export class EPGComponent implements OnInit {
   }
 
   openEpgModal() {
-    this.epgaddmodal = true;
-    this.epgaddform.reset();
+    this.epgAddModal = true;
+    this.epgAddForm.reset();
   }
 
   getEpgs(): void {
-    this.epgdatagridloading = true;
+    this.epgDataGridLoading = true;
     this.lumextService.getEpgs().subscribe(epgs => {
       this.epgs = epgs;
-      this.epgdatagridloading = false;
+      this.epgDataGridLoading = false;
     }, (err) => {
-      this.epgdatagridloading = false;
+      this.epgDataGridLoading = false;
     });
     this.selectedEpg = null;
   }
 
   // Tenant Creation form submit
   createEpgSubmit() {
-    if (this.epgaddform.valid) {
-      this.epgdatagridloading = true;
-      this.epgaddmodal = false;
-      var jsonData = this.epgaddform.value;
+    if (this.epgAddForm.valid) {
+      this.epgDataGridLoading = true;
+      this.epgAddModal = false;
+      var jsonData = this.epgAddForm.value;
       jsonData["operation"] = "AddEPG";
       jsonData["existingBD"] = this.existingBD;
       jsonData["intraEPG"] = this.intraEPG;
       jsonData["grpMember"] = this.grpMember; 
-      this.lumextService.addEpg(JSON.stringify(this.epgaddform.value)).subscribe(res => {
-        this.epgaddform.reset();
-        this.epgdatagridloading = false;
+      this.lumextService.addEpg(JSON.stringify(this.epgAddForm.value)).subscribe(res => {
+        this.epgAddForm.reset();
+        this.epgDataGridLoading = false;
         //this.getEpgs();
       }, (err) => {
         //this.getEpgs();
         this.showEpgAcknowledge = true;
-        this.epgdatagridloading = false;
+        this.epgDataGridLoading = false;
       });
     }
   }
 
   createEpgCancel(form: NgForm) {
-    this.epgaddmodal = false;
+    this.epgAddModal = false;
     form.reset();
   }
 

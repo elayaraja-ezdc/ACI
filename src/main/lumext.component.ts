@@ -14,7 +14,9 @@ export class LumextComponent implements OnInit {
         const route = this.router.url.split(/\/lumext/)[0];
         const lumext = this.router.url.split(/\/lumext/)[1]
         console.log("route :", route, "lumext : ", lumext);
-        if (!/\/user/.test(lumext) && !/\/epg/.test(lumext) && !/\/bridge/.test(lumext) && !/\/contract/.test(lumext)&& !/\/filter/.test(lumext)&& !/\/conbinding/.test(lumext)) {
+        if (!/\/user/.test(lumext) && !/\/epg/.test(lumext) && !/\/bridge/.test(lumext) && 
+            !/\/contract/.test(lumext)&& !/\/filter/.test(lumext)&& !/\/conbinding/.test(lumext)&& 
+            !/\/vrf/.test(lumext)&& !/\/applicationprofilename/.test(lumext)) {
             console.log("ici : ", route + '/lumext/user');
             this.router.navigateByUrl(route + '/lumext/user');
         }

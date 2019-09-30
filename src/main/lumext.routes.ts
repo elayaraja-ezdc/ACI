@@ -7,6 +7,8 @@ import { ContractComponent } from './business/contract/contract.component';
 import { FilterComponent } from './business/filter/filter.component';
 
 import { ConBindingComponent } from './business/conbinding/conbinding.component';
+import { VrfComponent } from './business/vrf/vrf.component';
+import { ApplicationProfileComponent } from './business/apn/apn.component';
 
 
 export const ROUTES: Route[] = [
@@ -20,6 +22,8 @@ export const ROUTES: Route[] = [
             { path: 'contract', component: ContractComponent },        
             { path: 'filter', component: FilterComponent },
             { path: 'conbinding', component: ConBindingComponent },
+            { path: 'vrf', component: VrfComponent },
+            { path: 'applicationprofilename', component: ApplicationProfileComponent },
             { path: '**', redirectTo: 'nasServer' }
         ]
     }

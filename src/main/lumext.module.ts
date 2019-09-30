@@ -17,6 +17,8 @@ import { FilterComponent } from './business/filter/filter.component';
 import { ConBindingComponent } from './business/conbinding/conbinding.component';
 //Added by Elaya for clr-radio 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { VrfComponent } from './business/vrf/vrf.component';
+import { ApplicationProfileComponent } from './business/apn/apn.component';
 
 
 
@@ -37,7 +39,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
         ContractComponent,
         FilterComponent,
         ConBindingComponent,
-        
+        VrfComponent,
+        ApplicationProfileComponent
        
     ],
     bootstrap: [

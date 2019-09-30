@@ -7,7 +7,7 @@ import {ConBinding} from '../../model/ConBinding';
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
-
+import { Vrf } from '../model/vrf';
 import { AuthTokenHolderService, API_ROOT_URL } from '@vcd-ui/common';
 import { Contract } from '../model/contract';
 
@@ -66,6 +66,29 @@ export class LumextService {
       });
   }
 
+  getVrfs(): Observable<Vrf[]> {
+    return this.getOrgId()
+      .mergeMap(orgId => {
+        return this.http
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
+          .map((res: Response) => JSON.parse(res.text()))
+          .catch(this.handleError);
+      });
+  }
+  addVrf(value: string) {
+	 console.log("APi URL"+API_ROOT_URL);
+	 console.log("this api"+this.apiRootUrl);
+	 console.log("Org id:"+JSON.stringify(this.getOrgId));
+	 console.log(value);
+    return this.getOrgId()
+      .mergeMap(orgId => {
+        return this.http
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, value, this.headers)
+         .map((res: Response) => JSON.parse(res.text()))
+         .catch(this.handleError);
+      });
+  }
+
   getEpgs(): Observable<Epg[]> {
     return this.getOrgId()
       .mergeMap(orgId => {
@@ -88,6 +111,30 @@ export class LumextService {
          .catch(this.handleError);
       });
   }
+
+  getApplicationProfiles(): Observable<Epg[]> {
+    return this.getOrgId()
+      .mergeMap(orgId => {
+        return this.http
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/epg`, this.headers)
+          .map((res: Response) => JSON.parse(res.text()))
+          .catch(this.handleError);
+      });
+  }
+  addApplicationProfile(value: string) {
+	 console.log("APi URL"+API_ROOT_URL);
+	 console.log("this api"+this.apiRootUrl);
+	 console.log("Org id:"+JSON.stringify(this.getOrgId));
+	 console.log(value);
+    return this.getOrgId()
+      .mergeMap(orgId => {
+        return this.http
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/epg`, value, this.headers)
+         .map((res: Response) => JSON.parse(res.text()))
+         .catch(this.handleError);
+      });
+  }
+
 
   getBridges(): Observable<Bridge[]> {
     return this.getOrgId()
