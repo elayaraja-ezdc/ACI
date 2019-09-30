@@ -56,7 +56,7 @@
           <div class="modal-body">
             <section class="form-block">
                 <div class="form-line line-description">
-                  <div class="form-group textarea-group" [formGroup]="useraddform">
+                  <div class="form-group textarea-group" [formGroup]="useraddform" style="width: 100%">
                     <div class="input-group" [ngClass]="{'invalid-input': isInvalid(useraddform, 'tenantName')}">
                       <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
                       <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">

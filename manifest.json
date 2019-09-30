@@ -1,6 +1,6 @@
 {
-    "urn": "vmware:vcloud:sii:lumext1",
-    "name": "CISCO - ACI V1.0",
+    "urn": "vmware:vcloud:sii:lumext2",
+    "name": "CISCO - ACI V1.1",
     "containerVersion": "9.1.0",
     "version": "1.0.0",
     "scope": ["tenant", "service-provider"],

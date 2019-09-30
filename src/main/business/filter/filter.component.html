@@ -36,7 +36,7 @@
         </clr-dg-row>
         <clr-dg-footer>
           {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
-          {{pagination.totalItems}} tenants
+          {{pagination.totalItems}} filters
           <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
         </clr-dg-footer>
       </clr-datagrid>
@@ -57,6 +57,21 @@
             <section class="form-block">
                 
                 <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="filterAddForm">
+                      <div class="input-group" [ngClass]="{'invalid-input': isInvalid(filterAddForm, 'tenantName')}">
+                        
+                        <input type="text" id="tenantName" name="tenantName" formControlName="tenantName" placeholder="Tenant Name *"style="width: 150px;">
+                        <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                          <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                            [ngClass]="{'icon-transparent' : !isInvalid(filterAddForm, 'tenantName')}">
+                          </clr-icon>
+                          <span class="tooltip-content error-message" *ngIf="isInvalid(filterAddForm, 'tenantName')">
+                            Invalid syntax for tenantName: Valid special characters are: . - _</span>
+                        </a>
+                      </div>
+                  </div>
+              </div>  
+              <div class="form-line line-description">
                     <div class="form-group textarea-group" [formGroup]="filterAddForm">
                         <div class="input-group" [ngClass]="{'invalid-input': isInvalid(filterAddForm, 'filterName')}">
                           
@@ -103,7 +118,7 @@
                 <div class="form-line line-description">
                   <div class="form-group textarea-group" [formGroup]="filterAddForm">
                       <clr-select-container style="width: 150px;">
-                        <label>ether Type *</label><br/>
+                        <label>ether Type </label><br/>
                         <select clrSelect name="etherT" [(ngModel)]="etherT" formControlName="etherT" style="width: 100%;">
                             <option value="ip">ip</option>
                             
@@ -116,7 +131,7 @@
                 <div class="form-line line-description">
                         <div class="form-group textarea-group" [formGroup]="filterAddForm">
                              <clr-select-container style="width: 150px;"> 
-                              <label>Protocol *</label><br/>
+                              <label>Protocol </label><br/>
                               <select clrSelect name="prot" [(ngModel)]="prot" formControlName="prot" style="width: 100%;">
                                   <option value="tcp">tcp</option>
                                   

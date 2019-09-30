@@ -31,15 +31,14 @@
                     [ngClass]="{selected: route ==='epg', 'no-selected': route !=='epg'}" class="child-menu">
                     EPG
                 </a>
+                <a clrVerticalNavLink routerLink="./filter" class="no-selected"
+                    [ngClass]="{selected: route ==='filter', 'no-selected': route !=='filter'}" class="child-menu">
+                    Filter
+                </a>
                 <a clrVerticalNavLink routerLink="./contract" class="no-selected"
                     [ngClass]="{selected: route ==='contract', 'no-selected': route !=='contract'}" class="child-menu">
                     Contract
                 </a>   
-                <a clrVerticalNavLink routerLink="./filter" class="no-selected"
-                    [ngClass]="{selected: route ==='filter', 'no-selected': route !=='filter'}" class="child-menu">
-                    Filter
-                </a>      
-                
                 <a clrVerticalNavLink routerLink="./conbinding" class="no-selected"
                     [ngClass]="{selected: route ==='conbinding', 'no-selected': route !=='conbinding'}" class="child-menu">
                     Contract Binding

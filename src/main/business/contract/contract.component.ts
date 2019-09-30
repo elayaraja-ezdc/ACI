@@ -22,9 +22,9 @@ export class ContractComponent implements OnInit {
   showContractAcknowledge: boolean = false;
 
   contractAddForm = new FormGroup({
-    contractType: new FormControl(''),
+    contractType: new FormControl('',[Validators.required]),
     contractSubjectName: new FormControl('',[Validators.required]),
-    contractFilterName: new FormControl(''),
+    contractFilterName: new FormControl('',[Validators.required]),
     contractName: new FormControl('',[Validators.required]),
     tenantName: new FormControl('',[Validators.required])
   });

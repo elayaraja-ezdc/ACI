@@ -26,7 +26,7 @@
             </clr-dg-row>
             <clr-dg-footer>
               {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
-              {{pagination.totalItems}} tenants
+              {{pagination.totalItems}} Bridge Domain
               <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
             </clr-dg-footer>
           </clr-datagrid>
@@ -46,8 +46,8 @@
               <div class="modal-body">
                 <section class="form-block">
             <div class="form-line">
-                        <div class="form-group" [formGroup]="bridgeaddform">
-                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'TenantName')}">
+                        <div class="form-group" [formGroup]="bridgeaddform" style="width:100%;">
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'TenantName')}" style="width:100%;">
                                 <input type="text" id="TenantName" formControlName="TenantName" placeholder="Tenant Name *">
                                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                                 <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
@@ -57,7 +57,10 @@
                                     Invalid syntax for TenantName: Valid special characters are: . - _</span>
                                 </a>
                             </div>
-                        </div>
+                        </div>                                           
+                  </div> 
+                  
+                  <div class="form-line">
                         <div class="form-group" [formGroup]="bridgeaddform">
                             <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'BDName')}">
                                 <input type="text" id="BDName" formControlName="BDName" placeholder="Bridge Domain Name *">
@@ -69,11 +72,8 @@
                                     Invalid syntax for BDName: Valid special characters are: . - _</span>
                                 </a>
                             </div>
-                        </div>                    
-                  </div> 
-                  
-                  <div class="form-line">
-                    <div class="form-group" [formGroup]="bridgeaddform">
+                        </div> 
+                    <!-- <div class="form-group" [formGroup]="bridgeaddform">
                         <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'Type')}">
                             <input type="text" id="Type" formControlName="Type" placeholder="Bridge Type *">
                             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
@@ -84,7 +84,9 @@
                                 Invalid syntax for Type: Valid special characters are: . - _</span>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
+                    
+
                     <div class="form-group" [formGroup]="bridgeaddform">
                         <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'VRF')}">
                             <input type="text" id="VRF" formControlName="VRF" placeholder="VRF *">
@@ -99,8 +101,17 @@
                     </div>                    
                   </div>
                   <div class="form-line">
+                    <div class="form-group textarea-group" [formGroup]="bridgeaddform" >
+                            <clr-select-container style="width: 200px;">
+                                <label>Bridge Type *</label><br />
+                                <select clrSelect name="Type" [(ngModel)]="Type"  formControlName="Type" style="width: 90%;">
+                                <option value="fc">FC</option>
+                                <option value="regular">Regular</option>
+                                </select>
+                            </clr-select-container>
+                     </div>
                     <div class="form-group" [formGroup]="bridgeaddform">
-                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'L2UnknownUnicast')}">
+                        <!-- <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'L2UnknownUnicast')}">
                             <input type="text" id="L2UnknownUnicast" formControlName="L2UnknownUnicast" placeholder="L2 Unknown Unicast *">
                             <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
                             <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
@@ -109,23 +120,41 @@
                             <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'L2UnknownUnicast')">
                                 Invalid syntax for L2UnknownUnicast: Valid special characters are: . - _</span>
                             </a>
+                        </div> -->
+                        <div class="form-group textarea-group" [formGroup]="bridgeaddform" >
+                            <clr-select-container style="width: 200px;">
+                                <label> L2 Unknown Unicast *</label><br />
+                                <select clrSelect name="L2UnknownUnicast" [(ngModel)]="L2UnknownUnicast"  formControlName="L2UnknownUnicast" style="width: 90%;">
+                                <option value="proxy">Proxy</option>
+                                </select>
+                            </clr-select-container>
                         </div>
                     </div>
-                    <div class="form-group" [formGroup]="bridgeaddform">
-                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'L3UnknownMultiCastFlooding')}">
-                            <input type="text" id="L3UnknownMultiCastFlooding" formControlName="L3UnknownMultiCastFlooding" placeholder="L3 Unknown MultiCast Flooding*">
-                            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
-                            <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                                [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'L3UnknownMultiCastFlooding')}">
-                            </clr-icon>
-                            <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'L3UnknownMultiCastFlooding')">
-                                Invalid syntax for L3UnknownMultiCastFlooding: Valid special characters are: . - _</span>
-                            </a>
-                        </div>
-                    </div>                    
+                                       
                  </div>
-                 <div class="form-line line-description">
-                    <div class="form-group textarea-group" [formGroup]="bridgeaddform" >
+                 <div class="form-line">
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                            <!-- <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'L3UnknownMultiCastFlooding')}">
+                                <input type="text" id="L3UnknownMultiCastFlooding" formControlName="L3UnknownMultiCastFlooding" placeholder="L3 Unknown MultiCast Flooding*">
+                                <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                                <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                                    [ngClass]="{'icon-transparent' : !isInvalid(bridgeaddform, 'L3UnknownMultiCastFlooding')}">
+                                </clr-icon>
+                                <span class="tooltip-content error-message" *ngIf="isInvalid(bridgeaddform, 'L3UnknownMultiCastFlooding')">
+                                    Invalid syntax for L3UnknownMultiCastFlooding: Valid special characters are: . - _</span>
+                                </a>
+                            </div> -->
+    
+                            <div class="form-group textarea-group" [formGroup]="bridgeaddform" >
+                                <clr-select-container style="width: 200px;">
+                                    <label> L3 Unknown MultiCast Flood*</label><br />
+                                    <select clrSelect name="L3UnknownMultiCastFlooding" [(ngModel)]="L3UnknownMultiCastFlooding"  formControlName="L3UnknownMultiCastFlooding" style="width: 90%;">
+                                    <option value="flood">Flood</option>
+                                    </select>
+                                </clr-select-container>
+                            </div>
+                    </div> 
+                    <!-- <div class="form-group textarea-group" [formGroup]="bridgeaddform" >
                             <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'MutliDestinationFlooding')}" style="width: 100%; margin: 0 18px;">
                                 <input type="text" id="MutliDestinationFlooding"  formControlName="MutliDestinationFlooding" placeholder="MultiDestination Flood*">
                                 <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
@@ -136,6 +165,14 @@
                                     Invalid syntax for MutliDestinationFlooding: Valid special characters are: . - _</span>
                                 </a>
                             </div>
+                    </div> -->
+                    <div class="form-group textarea-group" [formGroup]="bridgeaddform" >
+                        <clr-select-container style="width: 200px;">
+                            <label>MultiDestination Flood *</label><br />
+                            <select clrSelect name="MutliDestinationFlooding" [(ngModel)]="MutliDestinationFlooding"  formControlName="MutliDestinationFlooding" style="width: 90%;">
+                            <option value="bd-flood">BD-Flood</option>
+                            </select>
+                        </clr-select-container>
                     </div>
                  </div>  
                  <div class="form-line line-description">
@@ -199,7 +236,89 @@
                             </clr-radio-wrapper>
                             </clr-radio-container>
                         </div>
-                 </div>            
+                 </div>
+                 <div class="form-line">
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'mac')}">
+                            <input type="text" id="mac" formControlName="mac" placeholder="MAC Address ">
+                        </div>
+                    </div>                   
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'vmac')}">
+                            <input type="text" id="vmac" formControlName="vmac" placeholder="VMAC Address ">
+                        </div>
+                    </div>                    
+                  </div>
+                  <div class="form-line">
+                        <div class="form-group" [formGroup]="bridgeaddform">
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'ip1')}">
+                                <input type="text" id="ip1" formControlName="ip1" placeholder="Primary IP Address ">
+                            </div>
+                        </div>                                      
+                  </div>
+                  <div class="form-line">                    
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                        <clr-radio-container clrInline>
+                            <label>Treat as Virtual</label><br/>
+                            <clr-radio-wrapper>
+                            <input type="radio" clrRadio value="Yes" formControlName="ip1Virtual"/>
+                            <label>Yes &nbsp;&nbsp;</label>
+                            </clr-radio-wrapper>
+                            <clr-radio-wrapper>
+                            <input type="radio" clrRadio value="No"  formControlName="ip1Virtual" />
+                            <label>No</label>
+                            </clr-radio-wrapper>
+                        </clr-radio-container>
+                    </div>
+                    <div class="form-group" [formGroup]="bridgeaddform">
+                            <clr-radio-container clrInline>
+                            <label>Make this IP as Primary</label><br/>
+                            <clr-radio-wrapper>
+                                <input type="radio" clrRadio value="Yes" formControlName="ip1Preferred"/>
+                                <label>Yes &nbsp;&nbsp;</label>
+                            </clr-radio-wrapper>
+                            <clr-radio-wrapper>
+                                <input type="radio" clrRadio value="No"  formControlName="ip1Preferred" />
+                                <label>No</label>
+                            </clr-radio-wrapper>
+                            </clr-radio-container>
+                        </div>
+                  </div>
+                  <div class="form-line">
+                        <div class="form-group" [formGroup]="bridgeaddform">
+                            <div class="input-group" [ngClass]="{'invalid-input': isInvalid(bridgeaddform, 'ip2')}">
+                                <input type="text" id="ip2" formControlName="ip2" placeholder="Seconday IP Address ">
+                            </div>
+                        </div>                                      
+                  </div>
+                  <div class="form-line">                    
+                        <div class="form-group" [formGroup]="bridgeaddform">
+                            <clr-radio-container clrInline>
+                                <label>Treat as Virtual</label><br/>
+                                <clr-radio-wrapper>
+                                <input type="radio" clrRadio value="Yes" formControlName="ip2Virtual"/>
+                                <label>Yes &nbsp;&nbsp;</label>
+                                </clr-radio-wrapper>
+                                <clr-radio-wrapper>
+                                <input type="radio" clrRadio value="No"  formControlName="ip2Virtual" />
+                                <label>No</label>
+                                </clr-radio-wrapper>
+                            </clr-radio-container>
+                        </div>
+                        <div class="form-group" [formGroup]="bridgeaddform">
+                                <clr-radio-container clrInline>
+                                <label>Make this IP as Primary</label><br/>
+                                <clr-radio-wrapper>
+                                    <input type="radio" clrRadio value="Yes" formControlName="ip2Preferred"/>
+                                    <label>Yes &nbsp;&nbsp;</label>
+                                </clr-radio-wrapper>
+                                <clr-radio-wrapper>
+                                    <input type="radio" clrRadio value="No"  formControlName="ip2Preferred" />
+                                    <label>No</label>
+                                </clr-radio-wrapper>
+                                </clr-radio-container>
+                            </div>
+                      </div>            
                 </section>
               </div>
               <div class="modal-footer">

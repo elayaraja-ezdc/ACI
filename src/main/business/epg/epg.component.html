@@ -26,7 +26,7 @@
       </clr-dg-row>
       <clr-dg-footer>
         {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
-        {{pagination.totalItems}} tenants
+        {{pagination.totalItems}} eps
         <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
       </clr-dg-footer>
     </clr-datagrid>
@@ -89,14 +89,26 @@
                 </div> -->
             <div class="form-line line-description">
 
-              <div class="form-group textarea-group" [formGroup]="epgAddForm" >
+              <!-- <div class="form-group textarea-group" [formGroup]="epgAddForm" >
                 <clr-select-container style="width: 150px;">
                   <label>Select Bridge Domain *</label><br />
                   <select clrSelect name="existingBD" [(ngModel)]="existingBD" formControlName="existingBD" style="width: 100%;">
                     <option value="default">default</option>
                   </select>
                 </clr-select-container>
-              </div>
+              </div> -->
+              <div class="form-group textarea-group" [formGroup]="epgAddForm">
+                  <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgAddForm, 'existingBD')}">
+                    <input type="text" id="existingBD" formControlName="existingBD" placeholder="Bridge Domain Name *">
+                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                      <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                        [ngClass]="{'icon-transparent' : !isInvalid(epgAddForm, 'existingBD')}">
+                      </clr-icon>
+                      <span class="tooltip-content error-message" *ngIf="isInvalid(epgAddForm, 'existingBD')">
+                        Invalid syntax for existingBD: Valid special characters are: . - _</span>
+                    </a>
+                  </div>
+                </div>
 
               <div class="form-group textarea-group" [formGroup]="epgAddForm">
                 <clr-radio-container clrInline>
@@ -175,7 +187,7 @@
               </div>
              
              
-              
+<!--               
               <div class="form-line line-description">
                   <div class="form-group textarea-group" [formGroup]="epgAddForm" >
                     <div class="input-group" [ngClass]="{'invalid-input': isInvalid(epgAddForm, 'vlanMode')}" >
@@ -218,7 +230,7 @@
                       </a>
                     </div>
                   </div>
-                </div>
+                </div> -->
           </section>
         </div>
         <div class="modal-footer">

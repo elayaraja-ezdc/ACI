@@ -35,9 +35,9 @@ export class EPGComponent implements OnInit {
     applicationProfileName: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     epgName: new FormControl('',[Validators.required]),
-    vmmDomainProfile: new FormControl('',[Validators.required]),
-    resoultionImmediacy: new FormControl('',[Validators.required]),
-    vlanMode: new FormControl('',[Validators.required]),
+    vmmDomainProfile: new FormControl(''),
+    resoultionImmediacy: new FormControl(''),
+    vlanMode: new FormControl(''),
     //Dropdown Value
     intraEPG: new FormControl(''),
     grpMember: new FormControl('')

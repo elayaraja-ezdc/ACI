@@ -22,6 +22,7 @@ export class FilterComponent implements OnInit {
   showFilterAcknowledge: boolean = false;
 
   filterAddForm = new FormGroup({
+    tenantName : new FormControl(' ',[Validators.required]),
     filterName : new FormControl(' ',[Validators.required]),
     dFromPort: new FormControl('',[Validators.required]),
     dToPort: new FormControl('',[Validators.required]),
@@ -75,7 +76,7 @@ export class FilterComponent implements OnInit {
   }
 
   createFilterCancel(form: NgForm) {
-    this.filteraddmodal = false;
+    this.filterAddModal = false;
     form.reset();
   }
 

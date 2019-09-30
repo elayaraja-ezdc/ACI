@@ -36,7 +36,7 @@
         </clr-dg-row>
         <clr-dg-footer>
           {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
-          {{pagination.totalItems}} tenants
+          {{pagination.totalItems}} contracts
           <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
         </clr-dg-footer>
       </clr-datagrid>
@@ -108,9 +108,9 @@
                     </a>
                   </div>
                 </div>
-                </div>
+              </div>
               <div class="form-line line-description">
-                <div class="form-group textarea-group" [formGroup]="contractAddForm">
+                <!-- <div class="form-group textarea-group" [formGroup]="contractAddForm">
                     <clr-select-container style="width: 150px;">
                       <label>Select Contract Filter *</label><br/>
                       <select clrSelect name="contractFilterName" [(ngModel)]="contractFilterName" formControlName="contractFilterName" style="width: 100%;">
@@ -119,7 +119,19 @@
                           <option value="filter3">Filter3</option>
                       </select>
                     </clr-select-container>
-                </div>
+                </div> -->
+                <div class="form-group textarea-group" [formGroup]="contractAddForm" >
+                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(contractAddForm, 'contractFilterName')}" >
+                      <input type="text" id="contractFilterName" formControlName="contractFilterName" placeholder=" Contract Filter Name *">
+                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                          [ngClass]="{'icon-transparent' : !isInvalid(contractAddForm, 'contractFilterName')}">
+                        </clr-icon>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(contractAddForm, 'contractFilterName')">
+                          Invalid syntax for contractFilterName: Valid special characters are: . - _</span>
+                      </a>
+                    </div>
+                  </div>
               </div>
               <!-- <div class="form-line line-description">
                 <div class="form-group textarea-group" [formGroup]="contractaddform">

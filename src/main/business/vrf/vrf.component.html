@@ -38,7 +38,7 @@
         </clr-dg-row>
         <clr-dg-footer>
           {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of
-          {{pagination.totalItems}} tenants
+          {{pagination.totalItems}} VRF's
           <clr-dg-pagination #pagination [clrDgPageSize]="10"></clr-dg-pagination>
         </clr-dg-footer>
       </clr-datagrid>
@@ -58,22 +58,7 @@
           <div class="modal-body">
             <section class="form-block">
                 <div class="form-line line-description">
-                  <div class="form-group textarea-group" [formGroup]="vrfAddForm" style="width:100%">
-                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(vrfAddForm, 'vrfName')}"style="width: 100%">
-                      <input type="text" id="vrfName" formControlName="vrfName" placeholder="VRF *" >
-                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
-                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
-                          [ngClass]="{'icon-transparent' : !isInvalid(vrfAddForm, 'vrfName')}">
-                        </clr-icon>
-                        <span class="tooltip-content error-message" *ngIf="isInvalid(vrfAddForm, 'vrfName')">Invalid
-                          syntax for login: Valid special characters are: . - _</span>
-                      </a>
-                    </div>
-                  </div>
-                  </div>
-              
-                  <div class="form-line line-description">
-                    <div class="form-group textarea-group" [formGroup]="vrfAddForm">
+                    <div class="form-group textarea-group" [formGroup]="vrfAddForm" style="width:100%">
                       <div class="input-group" [ngClass]="{'invalid-input': isInvalid(vrfAddForm, 'tenantName')}">
                         <input type="text" id="tenantName" formControlName="tenantName" placeholder="Tenant Name *">
                         <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
@@ -86,12 +71,28 @@
                       </div>
                     </div>
                   </div>
+                <div class="form-line line-description">
+                  <div class="form-group textarea-group" [formGroup]="vrfAddForm" style="width:100%">
+                    <div class="input-group" [ngClass]="{'invalid-input': isInvalid(vrfAddForm, 'vrfName')}">
+                      <input type="text" id="vrfName" formControlName="vrfName" placeholder="VRF *" >
+                      <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-bottom-left">
+                        <clr-icon class="clr-validate-icon icon-error" shape="exclamation-circle"
+                          [ngClass]="{'icon-transparent' : !isInvalid(vrfAddForm, 'vrfName')}">
+                        </clr-icon>
+                        <span class="tooltip-content error-message" *ngIf="isInvalid(vrfAddForm, 'vrfName')">Invalid
+                          syntax for login: Valid special characters are: . - _</span>
+                      </a>
+                    </div>
+                  </div>
+                  </div>
+              
+                
 
                 <div class="form-line line-description">
                   <div class="form-group textarea-group" [formGroup]="vrfAddForm" >
                     <clr-select-container style="width: auto;margin: 0 10px">
                       <label>Policy Control Enforcement Preference*</label><br />
-                      <select clrSelect name="pControlEnforcementPref" [(ngModel)]="pControlEnforcementPref" formControlName="pControlEnforcementPref" style="width: 100%;">
+                      <select clrSelect name="pControlEnforcementPref" [(ngModel)]="pControlEnforcementPref"  formControlName="pControlEnforcementPref" style="width: 100%;">
                         <option value="Enforced">Enforced</option>
                         <option value="Unenforced">Unenforced</option>
                       </select>
@@ -102,7 +103,7 @@
                   <div class="form-group textarea-group" [formGroup]="vrfAddForm" >
                     <clr-select-container style="width: 200px;">
                       <label>Policy Control Enforcement Direction*</label><br />
-                      <select clrSelect name="pControlEnforcementDir" [(ngModel)]="pControlEnforcementDir" formControlName="pControlEnforcementDir" style="width: 90%;">
+                      <select clrSelect name="pControlEnforcementDir" [(ngModel)]="pControlEnforcementDir"  formControlName="pControlEnforcementDir" style="width: 90%;">
                         <option value="Egress">Egress</option>
                         <option value="Ingress">Ingress</option>
                       </select>
@@ -113,7 +114,7 @@
             </section>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline" (click)="createVrfCancel(vrfAddForm)">Cancel</button>
+            <button type="button" class="btn btn-outline" (click)="createvrfCancel(vrfAddForm)">Cancel</button>
             <button type="submit" class="btn btn-primary" [ngClass]="{'disabled': vrfAddForm.invalid}">Create</button>
           </div>
         </clr-modal>

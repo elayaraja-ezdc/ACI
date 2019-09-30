@@ -34,7 +34,15 @@ export class BridgeComponent implements OnInit {
     ARPFlooding: new FormControl(''),
     EndpointDataplaneLearning: new FormControl(''),
     LimitIPLearningToSubnet: new FormControl(''),
-    UnicastRouting: new FormControl('')
+    UnicastRouting: new FormControl(''),
+    mac: new FormControl(''),
+    vmac: new FormControl(''),
+    ip1: new FormControl(''),
+    ip1Virtual: new FormControl(''),
+    ip1Preferred: new FormControl(''),
+    ip2: new FormControl(''),
+    ip2Virtual: new FormControl(''),
+    ip2Preferred: new FormControl('')
   });
 
   constructor(private lumextService: LumextService) { }
@@ -49,12 +57,12 @@ export class BridgeComponent implements OnInit {
   }
 
   getBridges(): void {
-    this.bridgedatagridloading = true;
+    this.bridgeDataGridLoading = true;
     this.lumextService.getBridges().subscribe(bridges => {
       this.bridges = bridges;
-      this.bridgedatagridloading = false;
+      this.bridgeDataGridLoading = false;
     }, (err) => {
-      this.bridgedatagridloading = false;
+      this.bridgeDataGridLoading = false;
     });
     this.selectedBridge = null;
   }
@@ -62,18 +70,18 @@ export class BridgeComponent implements OnInit {
   // Tenant Creation form submit
   createBridgeSubmit() {
     if (this.bridgeaddform.valid) {
-      this.bridgedatagridloading = true;
+      this.bridgeDataGridLoading = true;
       this.bridgeaddmodal = false;
       var jsonData = this.bridgeaddform.value;
       jsonData["operation"] = "AddBridgeDomain"; 
       this.lumextService.addBridge(JSON.stringify(this.bridgeaddform.value)).subscribe(res => {
         this.bridgeaddform.reset();
-        this.bridgedatagridloading = false;
+        this.bridgeDataGridLoading = false;
         //this.getBridges();
       }, (err) => {
         //this.getBridges();
         this.showBridgeAcknowledge = true;
-        this.bridgedatagridloading = false;
+        this.bridgeDataGridLoading = false;
       });
     }
   }
