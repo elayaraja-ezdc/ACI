@@ -55,6 +55,7 @@ export class UserComponent implements OnInit {
     this.userdatagridloading = true;
     this.lumextService.getUsers().subscribe(users => {
       this.users = users;
+      console.log("Get ACI Token:"+JSON.stringify(users));
       this.userdatagridloading = false;
     }, (err) => {
       this.userdatagridloading = false;

@@ -61,7 +61,8 @@ export class LumextService {
       .mergeMap(orgId => {
         return this.http
           .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
-          .map((res: Response) => JSON.parse(res.text()))
+          //.map((res: Response) => JSON.parse(res.text()))
+          .map((res: Response) => JSON.parse(JSON.stringify(res)))
           .catch(this.handleError);
       });
   }
