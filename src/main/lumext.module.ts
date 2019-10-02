@@ -8,6 +8,11 @@ import {EXTENSION_ROUTE, ExtensionNavRegistration, ExtensionNavRegistrationActio
 import {UserComponent} from './business/user/user.component';
 import {ROUTES} from './lumext.routes';
 
+//New module added//
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+//New module addedd//
+
 import {ClarityModule} from 'clarity-angular';
 import { MenuComponent } from './business/menu.component/menu.component';
 import { EPGComponent } from './business/epg/epg.component';
@@ -24,6 +29,8 @@ import { ApplicationProfileComponent } from './business/apn/apn.component';
 
 @NgModule({
     imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
         ClarityModule,
         CommonModule,
         RouterModule.forChild(ROUTES),
