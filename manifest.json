@@ -1,14 +1,14 @@
 {
     "urn": "vmware:vcloud:sii:lumext2",
-    "name": "CISCO - ACI V1.0",
+    "name": "CISCO-ACI V2.0",
     "containerVersion": "9.1.0",
     "version": "1.0.0",
     "scope": ["tenant", "service-provider"],
     "permissions": [],
-    "description": "CISCO ACI Integration Extension.",
-    "vendor": "SII",
-    "license": "MIT",
-    "link": "https://github.com/groupe-sii/lumext",
+    "description": "CISCO APIC ACI Integration Extension.",
+    "vendor": "EZDC",
+    "license": "VMware",
+    "link": "https://github.com/elayaraja-ezdc/ACI",
     "module": "LumextModule",
     "route": "lumext"
 }

@@ -24,7 +24,7 @@ export class VrfComponent implements OnInit {
 
   vrfAddForm = new FormGroup({
 
-    vrfName: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z]*/),Validators.maxLength(25)]),
+    vrfName: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
     pControlEnforcementPref: new FormControl('Unenforced',Validators.required),
     pControlEnforcementDir: new FormControl('Egress',Validators.required),
     //tenantName : new FormControl('')

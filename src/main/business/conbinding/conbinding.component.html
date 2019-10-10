@@ -65,6 +65,10 @@
                             <span class="tooltip-content error-message" *ngIf="isInvalid(conBindingaddform, 'applicationProfileName')">
                                 Invalid syntax for applicationProfileName: Valid special characters are: . - _</span>
                             </a>
+                            <a href="..." title="Application Profile Name" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-top-left">
+                              <clr-icon shape="info-circle" size="24"></clr-icon>
+                              <span class="tooltip-content">Application Profile Name</span>
+                            </a>
                         </div>
                     </div>
                     <div class="form-group" [formGroup]="conBindingaddform">
@@ -77,6 +81,10 @@
                             <span class="tooltip-content error-message" *ngIf="isInvalid(conBindingaddform, 'epgName')">
                                 Invalid syntax for epgName: Valid special characters are: . - _</span>
                             </a>
+                            <a href="..." title="EPG Name" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-top-left">
+                              <clr-icon shape="info-circle" size="24"></clr-icon>
+                              <span class="tooltip-content">EPG Name</span>
+                            </a>
                         </div>
                     </div>                  
                                         
@@ -85,12 +93,19 @@
                   <div class="form-group" [formGroup]="conBindingaddform">
                     <div class="input-group" [ngClass]="{'invalid-input': isInvalid(conBindingaddform, 'providedContract')}">
                         <input type="text" id="providedContract" formControlName="providedContract" placeholder="Add Provided Contract *">
+                        <a href="..." role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-top-left">
+                          <clr-icon shape="info-circle" size="24"></clr-icon>
+                          <span class="tooltip-content">Provided Contract Name</span>
+                        </a>
                      </div>
                 </div>                     
                 <div class="form-group" [formGroup]="conBindingaddform">
                   <div class="input-group" [ngClass]="{'invalid-input': isInvalid(conBindingaddform, 'consumedContract')}">
                       <input type="text" id="consumedContract" formControlName="consumedContract" placeholder="Add Consumed Contract *">
-                      
+                      <a href="..."  role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm tooltip-top-left">
+                        <clr-icon shape="info-circle" size="24"></clr-icon>
+                        <span class="tooltip-content">Consumed Contract Name</span>
+                      </a>
                   </div>
               </div>                    
             </div>              

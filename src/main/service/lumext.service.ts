@@ -2,8 +2,8 @@ import { User } from './../model/user';
 import { Epg } from './../model/epg';
 import { Bridge } from './../model/bridge';
 
-import {Filter} from '../../model/Filter';
-import {ConBinding} from '../../model/ConBinding';
+import {Filter} from './../model/Filter';
+import {ConBinding} from './../model/ConBinding';
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
@@ -23,6 +23,13 @@ export class LumextService {
     authTokenHolderService: AuthTokenHolderService,
     @Inject(API_ROOT_URL) private apiRootUrl: string) {
     this.headers = { 'headers': { 'x-vcloud-authorization': authTokenHolderService.token, 'Accept': 'application/*+json;version=31.0' } }
+
+    // this.apicHeaders = {
+    //   "headers": {
+    //     "Accept":"application/json",
+    //     "rejectUnauthorized": false       
+    //   }
+    // }
   }
 
   getOrgPath() {
@@ -56,11 +63,41 @@ export class LumextService {
       });
   }
 
+  // getUsers(): Observable<User[]> {
+  //   return this.getOrgId()
+  //     .mergeMap(orgId => {
+  //       return this.http
+  //         .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
+  //         //.map((res: Response) => JSON.parse(res.text()))
+  //         .map((res: Response) => JSON.parse(JSON.stringify(res)))
+  //         .catch(this.handleError);
+  //     });
+  // }
+  // getAllTenantData(vcdToken: string, vcdUrlToken: string): Observable<User[]> {
+  //   var value = '{"aaaUser": {"attributes": {"name": "admin","pwd": "ciscopsdt"}}}';
+  //   this.apicHeaders["headers"]["Cookie"] = "APIC-cookie=" + vcdToken;
+  //   this.apicHeaders["headers"]["APIC-challenge"] = vcdUrlToken;
+  //   return this.getOrgId()
+  //     .mergeMap(orgId => {
+  //       return this.http
+  //       //devnetsbx-netacad-apicem-1.cisco.com
+  //         //.get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
+  //         .get(`https://APIC/api/class/fvTenant.json`,this.apicHeaders)
+  //         //.map((res: Response) => JSON.parse(res.text()))
+  //         .map((res: Response) => JSON.parse(JSON.stringify(res)))
+  //         .catch(this.handleError);
+  //     });
+  // }
+
   getUsers(): Observable<User[]> {
+    //var value = '{"aaaUser": {"attributes": {"name": "admin","pwd": "ciscopsdt"}}}';
+    var value = '{"aaaUser": {"attributes": {"name": "admin","pwd": "P@ssw0rd"}}}';
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
+        //devnetsbx-netacad-apicem-1.cisco.com
+          //.get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
+          .post(`https://APIC/api/aaaLogin.json?gui-token-request=yes`,value,this.apicHeaders)
           //.map((res: Response) => JSON.parse(res.text()))
           .map((res: Response) => JSON.parse(JSON.stringify(res)))
           .catch(this.handleError);
@@ -108,7 +145,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/epg`, this.headers)
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
           .map((res: Response) => JSON.parse(res.text()))
           .catch(this.handleError);
       });
@@ -121,7 +158,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/epg`, value, this.headers)
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, value, this.headers)
          .map((res: Response) => JSON.parse(res.text()))
          .catch(this.handleError);
       });
@@ -131,7 +168,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/epg`, this.headers)
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
           .map((res: Response) => JSON.parse(res.text()))
           .catch(this.handleError);
       });
@@ -144,7 +181,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/epg`, value, this.headers)
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, value, this.headers)
          .map((res: Response) => JSON.parse(res.text()))
          .catch(this.handleError);
       });
@@ -155,7 +192,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/epg`, this.headers)
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
           .map((res: Response) => JSON.parse(res.text()))
           .catch(this.handleError);
       });
@@ -168,7 +205,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/bridge`, value, this.headers)
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, value, this.headers)
          .map((res: Response) => JSON.parse(res.text()))
          .catch(this.handleError);
       });
@@ -178,7 +215,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/contract`, this.headers)
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
           .map((res: Response) => JSON.parse(res.text()))
           .catch(this.handleError);
       });
@@ -191,7 +228,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/contract`, value, this.headers)
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, value, this.headers)
          .map((res: Response) => JSON.parse(res.text()))
          .catch(this.handleError);
       });
@@ -205,7 +242,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/filter`, this.headers)
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
           .map((res: Response) => JSON.parse(res.text()))
           .catch(this.handleError);
       });
@@ -218,7 +255,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/filter`, value, this.headers)
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, value, this.headers)
          .map((res: Response) => JSON.parse(res.text()))
          .catch(this.handleError);
       });
@@ -227,7 +264,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/conbinding`, this.headers)
+          .get(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, this.headers)
           .map((res: Response) => JSON.parse(res.text()))
           .catch(this.handleError);
       });
@@ -240,7 +277,7 @@ export class LumextService {
     return this.getOrgId()
       .mergeMap(orgId => {
         return this.http
-         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/conbinding`, value, this.headers)
+         .post(`${this.apiRootUrl}/api/org/${orgId}/lumext/user`, value, this.headers)
          .map((res: Response) => JSON.parse(res.text()))
          .catch(this.handleError);
       });

@@ -25,7 +25,7 @@ export class ApplicationProfileComponent implements OnInit {
   applicationProfileAddForm = new FormGroup({
 
     //tenantName: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z]*/),Validators.maxLength(25)]),
-    ApplicationProfileName: new FormControl(''),
+    ApplicationProfileName: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
     Description: new FormControl('')
     
   });

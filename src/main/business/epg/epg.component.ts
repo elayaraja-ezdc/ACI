@@ -31,15 +31,15 @@ export class EPGComponent implements OnInit {
     addNewTenant: new FormControl(''),
     //tenantName: new FormControl('', [Validators.required]),
     //addNewBridgeDomain: new FormControl(''),
-    existingBD: new FormControl(''),
-    applicationProfileName: new FormControl('', [Validators.required]),
+    existingBD: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
+    applicationProfileName: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
     description: new FormControl(''),
-    epgName: new FormControl('',[Validators.required]),
-    vmmDomainProfile: new FormControl(''),
+    epgName: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
+    vmmDomainProfile: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
     resoultionImmediacy: new FormControl(''),
-    vlanMode: new FormControl(''),
+    vlanMode: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
     //Dropdown Value
-    intraEPG: new FormControl(''),
+    intraEPG: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
     grpMember: new FormControl('')
   });
 

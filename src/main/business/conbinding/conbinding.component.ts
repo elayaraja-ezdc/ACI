@@ -23,8 +23,8 @@ export class ConBindingComponent implements OnInit {
   showConBindingAcknowledge: boolean = false;
 
   conBindingaddform = new FormGroup({
-    applicationProfileName: new FormControl('',[Validators.required]),
-    epgName: new FormControl('',[Validators.required]),
+    applicationProfileName: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
+    epgName: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
     providedContract: new FormControl(''),
     consumedContract: new FormControl('')
   });

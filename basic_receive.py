@@ -2,9 +2,13 @@
 import base64, json, pika
 
 # RabbitMQ Connection Information
-RABBIT_HOST = 'vcdrmq.sg.local'
-RABBIT_USER = 'admin1'
-RABBIT_PASSWORD = 'VMware1!'
+# RABBIT_HOST = 'vcdrmq.sg.local'
+# RABBIT_USER = 'admin1'
+# RABBIT_PASSWORD = 'VMware1!'
+
+RABBIT_HOST = 'amqp.poc.local'
+RABBIT_USER = 'admin'
+RABBIT_PASSWORD = 'P@ssw0rd'
 
 # Exchange and Queue we will subscribe to
 RABBIT_EXCHANGE = 'systemExchange'

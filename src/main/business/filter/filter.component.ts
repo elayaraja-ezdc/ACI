@@ -24,11 +24,11 @@ export class FilterComponent implements OnInit {
 
   filterAddForm = new FormGroup({
     //tenantName : new FormControl(' ',[Validators.required]),
-    filterName : new FormControl(' ',[Validators.required]),
-    dFromPort: new FormControl('',[Validators.required]),
-    dToPort: new FormControl('',[Validators.required]),
-    etherT: new FormControl(''),
-    prot: new FormControl('')
+    filterName : new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
+    dFromPort: new FormControl('', [Validators.required,Validators.pattern(/^[0-9_.-]*$/),Validators.maxLength(6)]),
+    dToPort: new FormControl('', [Validators.required,Validators.pattern(/^[0-9_.-]*$/),Validators.maxLength(6)]),
+    etherT: new FormControl('', [Validators.required]),
+    prot: new FormControl('', [Validators.required]),
   });
 
   

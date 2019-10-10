@@ -16,6 +16,10 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 export class UserComponent implements OnInit {
   orgName: string;
   users: User[];
+  tokens: [];
+  vcdToken: String;
+  vcdUrlToken: String;
+  tenantsData: [];
   selectedUser: User;
   userdatagridloading: boolean = false;
   useraddmodal: boolean = false;
@@ -23,7 +27,7 @@ export class UserComponent implements OnInit {
   showUserAcknowledge: boolean = false;
 
   useraddform = new FormGroup({
-    tenantName: new FormControl('', [Validators.required,Validators.pattern(/^[A-Za-z]*/),Validators.maxLength(25)]),
+    tenantName: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)])
   });
 
   
@@ -51,11 +55,31 @@ export class UserComponent implements OnInit {
     });
   }
 
+  // getTenantData(vcdToken, vcdUrlToken): void {
+
+  //   console.log("tenant method1:"+vcdToken);
+  //   console.log("tenant method2:"+vcdUrlToken);
+  //   this.lumextService.getAllTenantData(vcdToken, vcdUrlToken).subscribe(tenantsData => {
+  //     this.tenantsData = tenantsData['_body'];
+  //     console.log("Get ACI Tenant:"+JSON.stringify(tenantsData));
+  //     this.userdatagridloading = false;
+  //   }, (err) => {
+  //     this.userdatagridloading = false;
+  //   });
+
+  // }
+
   getUsers(): void {
     this.userdatagridloading = true;
-    this.lumextService.getUsers().subscribe(users => {
-      this.users = users;
-      console.log("Get ACI Token:"+JSON.stringify(users));
+    this.lumextService.getUsers().subscribe(tokens => {
+      this.tokens = tokens['_body'];
+      console.log("Get ACI Token:"+JSON.stringify(tokens));
+      console.log("Token"+JSON.stringify(JSON.parse(tokens['_body'])['imdata'][0]['aaaLogin']['attributes']['token']));
+      console.log("urlToken"+JSON.stringify(JSON.parse(tokens['_body'])['imdata'][0]['aaaLogin']['attributes']['urlToken']));
+      this.vcdToken = JSON.parse(tokens['_body'])['imdata'][0]['aaaLogin']['attributes']['token'];
+      this.vcdUrlToken = JSON.parse(tokens['_body'])['imdata'][0]['aaaLogin']['attributes']['urlToken']
+      //console.log(" URL Token"+JSON.parse(tokens['_body']).imdata[0].attributes.urlToken);
+      //this.getTenantData(this.vcdToken, this.vcdUrlToken);
       this.userdatagridloading = false;
     }, (err) => {
       this.userdatagridloading = false;

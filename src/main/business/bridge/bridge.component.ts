@@ -25,10 +25,10 @@ export class BridgeComponent implements OnInit {
 
   bridgeaddform = new FormGroup({
     //TenantName: new FormControl('', [Validators.required]),
-    BDName: new FormControl('', [Validators.required]),
+    BDName: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
     Description: new FormControl(''),
-    // Type: new FormControl('', [Validators.required]),
-    VRF: new FormControl('', [Validators.required]),
+    // Type: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
+    VRF: new FormControl('', [Validators.required,Validators.pattern(/^[a-zA-Z0-9_.-]*$/),Validators.maxLength(25)]),
     // L2UnknownUnicast: new FormControl('', [Validators.required]),
     // L3UnknownMultiCastFlooding: new FormControl('', [Validators.required]),
     // MutliDestinationFlooding: new FormControl('', [Validators.required]),
@@ -38,7 +38,7 @@ export class BridgeComponent implements OnInit {
     // UnicastRouting: new FormControl(''),
     // mac: new FormControl(''),
     // vmac: new FormControl(''),
-    ip1: new FormControl(''),
+    ip1: new FormControl('', [Validators.required,Validators.pattern(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/\d+$/)]),
     // ip1Virtual: new FormControl(''),
     // ip1Preferred: new FormControl(''),
     // ip2: new FormControl(''),
