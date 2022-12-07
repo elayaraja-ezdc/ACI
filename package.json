@@ -41,7 +41,7 @@
     "@types/node": "7.0.12",
     "bestzip": "1.1.4",
     "body-parser": "1.17.1",
-    "express": "4.15.2",
+    "express": "4.17.3",
     "express-history-api-fallback": "2.1.0",
     "http-proxy": "1.16.2",
     "ncp": "2.0.0",
